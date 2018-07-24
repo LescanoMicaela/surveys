@@ -1,9 +1,8 @@
 package com.survey.surveys;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Question {
@@ -12,24 +11,31 @@ public class Question {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     private String question;
-    private String answer;
+//    private String type;
+
+    @OneToMany(mappedBy = "question", fetch = FetchType.EAGER)
+    private Set<SurveyQuestion> surveyQuestions = new HashSet<SurveyQuestion>();
+
+    @OneToMany(mappedBy = "question", fetch = FetchType.EAGER)
+    private Set<UserSurveyAnswer> userSurveyAnswer = new HashSet<UserSurveyAnswer>();
+
+
 
     public Question(){
 
     }
 
-    public Question( String question, String answer){
+    public Question( String question){
         this.question = question;
-        this.answer = answer;
+//        this.type = answer;
+
     }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+
 
     public String getQuestion() {
         return question;
@@ -39,11 +45,27 @@ public class Question {
         this.question = question;
     }
 
-    public String getAnswer() {
-        return answer;
+//    public String getType() {
+//        return type;
+//    }
+//
+//    public void setType(String type) {
+//        this.type = type;
+//    }
+
+    public Set<SurveyQuestion> getSurveyQuestions() {
+        return surveyQuestions;
     }
 
-    public void setAnswer(String answer) {
-        this.answer = answer;
+    public void setSurveyQuestions(Set<SurveyQuestion> surveyQuestions) {
+        this.surveyQuestions = surveyQuestions;
+    }
+
+    public Set<UserSurveyAnswer> getUserSurveyAnswer() {
+        return userSurveyAnswer;
+    }
+
+    public void setUserSurveyAnswer(Set<UserSurveyAnswer> userSurveyAnswer) {
+        this.userSurveyAnswer = userSurveyAnswer;
     }
 }

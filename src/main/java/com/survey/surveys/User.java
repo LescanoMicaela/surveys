@@ -1,9 +1,8 @@
 package com.survey.surveys;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -15,6 +14,9 @@ public class User {
     private String userName;
     private String email;
     private String password;
+
+    @OneToMany(mappedBy="user", fetch=FetchType.EAGER)
+    Set<UserSurvey> userSurveys = new LinkedHashSet<>();
 
     public User() {
 
@@ -51,6 +53,13 @@ public class User {
         this.email = email;
     }
 
+    public Set<UserSurvey> getUserSurveys() {
+        return userSurveys;
+    }
+
+    public void setUserSurveys(Set<UserSurvey> userSurveys) {
+        this.userSurveys = userSurveys;
+    }
 //    public String getPassword() {
 //        return password;
 //    }

@@ -14,12 +14,16 @@ public class SurveysApplication {
 	}
 
 	@Bean
-	public CommandLineRunner initData(UserRepository userRepo){
+	public CommandLineRunner initData(UserRepository userRepo, QuestionRepository questionRepo){
 		return args -> {
 			// save a couple of customers
 			userRepo.save(new User("Alasdar","hola123","alasdair@gmail.com"));
 			userRepo.save(new User("Mika","holita123","micaela@gmail.com"));
 			userRepo.save(new User("Adonis","cleo123","adonis@gmail.com"));
+
+			questionRepo.save(new Question("What's your name?"));
+			questionRepo.save(new Question("How old are you?"));
+			questionRepo.save(new Question("Do you love cats?"));
 
 		};
 	}
