@@ -52,4 +52,9 @@ public class Survey {
     public void setUserSurveys(Set<UserSurvey> userSurveys) {
         this.userSurveys = userSurveys;
     }
+
+    public void addQuestion(SurveyQuestion surveyQuestion) {
+        surveyQuestion.setSurvey(this);
+        surveyQuestions.add(surveyQuestion);
+    }
 }

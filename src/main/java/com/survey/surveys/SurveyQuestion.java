@@ -21,6 +21,12 @@ public class SurveyQuestion {
 
     }
 
+    public SurveyQuestion(Survey survey, Question question){
+        this.survey = survey;
+        this.question = question;
+
+    }
+
 
     public Survey getSurvey() {
         return survey;

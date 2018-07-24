@@ -23,8 +23,9 @@ public class UserSurveyAnswer {
 
     }
 
-    public UserSurveyAnswer(String answer){
-
+    public UserSurveyAnswer(UserSurvey userSurvey, Question question, String answer){
+        this.userSurvey= userSurvey;
+        this.question = question;
         this.answer = answer;
 
     }
