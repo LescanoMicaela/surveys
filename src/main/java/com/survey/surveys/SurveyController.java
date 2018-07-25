@@ -21,16 +21,32 @@ public class SurveyController {
 
     @Autowired UserRepository userRepo;
 
-    @RequestMapping("/surveys")
-    public Map<String,Object> makeSurveyDTO() {
+    @RequestMapping("/user_info")
+    public Map<String,Object> makeSurveyDTO(Authentication auth) {
         Map<String,Object> dto = new LinkedHashMap<>();
-
+        if (auth !=null) {
+            dto.put("currentUser", makeUserDTO(getCurrentUser(auth)));
+        }else{
+            dto.put("currentUser", null);
+        }
         return dto;
 
     }
 
+    public Map<String,Object> makeUserDTO(User user) {
+        Map<String, Object> userDTO = new LinkedHashMap<>();
+            userDTO.put("id", user.getId());
+            userDTO.put("email", user.getEmail());
+            userDTO.put("name", user.getUserName());
+        return userDTO;
+    }
+
+    public Map<String,Object> makeUserSurveyDTO(){
+
+    }
+
     private User getCurrentUser (Authentication authentication) {
-        return userRepo.findByUserName(authentication.getName());
+        return userRepo.findByEmail(authentication.getName());
     }
 
     private boolean isGuest(Authentication authentication) {
@@ -39,15 +55,17 @@ public class SurveyController {
 
 
     @RequestMapping(path = "/users", method = RequestMethod.POST)
-    public ResponseEntity<Map<String, Object>> createUser(@RequestParam String username, @RequestParam String password,@RequestParam String email) {
-        if (username.isEmpty() || password.isEmpty() ) {
+    public ResponseEntity<Map<String, Object>> createUser(@RequestParam String userName, @RequestParam String password,@RequestParam String email) {
+        if (email.isEmpty() || password.isEmpty() ) {
             return new ResponseEntity<>(makeMap("error", "empty field"), HttpStatus.FORBIDDEN);
         }
-        User user = userRepo.findByUserName(username);
-        if (user != null) {
-            return new ResponseEntity<>(makeMap("error", "Username already exists"), HttpStatus.CONFLICT);
+        User user = userRepo.findByEmail(email);
+        User username = userRepo.findByUserName(userName);
+
+        if ( (user != null ) || (username !=null)) {
+            return new ResponseEntity<>(makeMap("error", "User already exists"), HttpStatus.CONFLICT);
         }
-        User newUser = userRepo.save(new User(username, password,email));
+        User newUser = userRepo.save(new User(userName, password,email));
         return new ResponseEntity<>(makeMap("Username", newUser.getUserName()) , HttpStatus.CREATED);
     }
 

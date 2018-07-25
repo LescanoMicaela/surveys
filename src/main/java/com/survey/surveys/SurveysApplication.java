@@ -35,8 +35,8 @@ public class SurveysApplication {
 		return args -> {
 			// save a couple of customers
 			User alasdair = new User("Alasdar","hola123","alasdair@gmail.com");
-			User mica = new User("Alasdar","hola123","alasdair@gmail.com");
-			User adonis = new User("Alasdar","hola123","alasdair@gmail.com");
+			User mica = new User("mica","hola456","mica@gmail.com");
+			User adonis = new User("adonis","hola789","adonis@gmail.com");
 			userRepo.save(alasdair);
 			userRepo.save(mica);
 			userRepo.save(adonis);
@@ -124,7 +124,7 @@ class WebSecurityConfiguration extends GlobalAuthenticationConfigurerAdapter {
 	@Override
 	public void init(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(inputName-> {
-			User user = userRepository.findByUserName(inputName);
+			User user = userRepository.findByEmail(inputName);
 			if (user != null) {
 				return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
 						AuthorityUtils.createAuthorityList("USER"));
