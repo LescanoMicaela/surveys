@@ -86,27 +86,27 @@ public class SurveysApplication {
 			userSurveyRepo.save(us2);
 			userSurveyRepo.save(us3);
 
-			UserSurveyAnswer usa1 = new UserSurveyAnswer(us1,q1,"Great");
-			UserSurveyAnswer usa2 = new UserSurveyAnswer(us1,q1,"Very well");
-			UserSurveyAnswer usa3 = new UserSurveyAnswer(us1,q1,"Very likely");
-			UserSurveyAnswer usa4 = new UserSurveyAnswer(us1,q1,"3 days");
-			UserSurveyAnswer usa5 = new UserSurveyAnswer(us1,q1,"No");
-			UserSurveyAnswer usa6 = new UserSurveyAnswer(us1,q1,"Fair well");
-			UserSurveyAnswer usa7 = new UserSurveyAnswer(us1,q1,"Very well");
-			UserSurveyAnswer usa8 = new UserSurveyAnswer(us1,q1,"2 years");
-			UserSurveyAnswer usa9 = new UserSurveyAnswer(us1,q1,"Very likely");
-			UserSurveyAnswer usa10 = new UserSurveyAnswer(us1,q1,"No");
+//			UserSurveyAnswer usa1 = new UserSurveyAnswer(us1,q1,"Great");
+//			UserSurveyAnswer usa2 = new UserSurveyAnswer(us1,q2,"Very well");
+//			UserSurveyAnswer usa3 = new UserSurveyAnswer(us1,q3,"Very likely");
+//			UserSurveyAnswer usa4 = new UserSurveyAnswer(us1,q4,"3 days");
+//			UserSurveyAnswer usa5 = new UserSurveyAnswer(us1,q5,"No");
+//			UserSurveyAnswer usa6 = new UserSurveyAnswer(us1,q6,"Fair well");
+//			UserSurveyAnswer usa7 = new UserSurveyAnswer(us1,q7,"Very well");
+//			UserSurveyAnswer usa8 = new UserSurveyAnswer(us1,q8,"2 years");
+//			UserSurveyAnswer usa9 = new UserSurveyAnswer(us1,q9,"Very likely");
+//			UserSurveyAnswer usa10 = new UserSurveyAnswer(us1,q10,"No");
 
-			userSurveyAnswerRepo.save(usa1);
-			userSurveyAnswerRepo.save(usa2);
-			userSurveyAnswerRepo.save(usa3);
-			userSurveyAnswerRepo.save(usa4);
-			userSurveyAnswerRepo.save(usa5);
-			userSurveyAnswerRepo.save(usa6);
-			userSurveyAnswerRepo.save(usa7);
-			userSurveyAnswerRepo.save(usa8);
-			userSurveyAnswerRepo.save(usa9);
-			userSurveyAnswerRepo.save(usa10);
+//			userSurveyAnswerRepo.save(usa1);
+//			userSurveyAnswerRepo.save(usa2);
+//			userSurveyAnswerRepo.save(usa3);
+//			userSurveyAnswerRepo.save(usa4);
+//			userSurveyAnswerRepo.save(usa5);
+//			userSurveyAnswerRepo.save(usa6);
+//			userSurveyAnswerRepo.save(usa7);
+//			userSurveyAnswerRepo.save(usa8);
+//			userSurveyAnswerRepo.save(usa9);
+//			userSurveyAnswerRepo.save(usa10);
 
 
 

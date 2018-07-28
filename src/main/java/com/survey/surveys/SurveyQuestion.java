@@ -28,8 +28,16 @@ public class SurveyQuestion {
     }
 
 
-    public Survey getSurvey() {
-        return survey;
+//    public Survey getSurvey() {
+//        return survey;
+//    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setSurvey(Survey survey) {

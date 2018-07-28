@@ -1,5 +1,7 @@
 package com.survey.surveys;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -36,6 +38,7 @@ public class UserSurveyAnswer {
 
 
 
+
     public UserSurvey getUserSurvey() {
         return userSurvey;
     }
@@ -44,6 +47,7 @@ public class UserSurveyAnswer {
         this.userSurvey = userSurvey;
     }
 
+    @JsonIgnore
     public Question getQuestion() {
         return question;
     }

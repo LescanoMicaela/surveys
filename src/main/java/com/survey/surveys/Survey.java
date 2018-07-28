@@ -1,9 +1,7 @@
 package com.survey.surveys;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class Survey {
@@ -14,10 +12,10 @@ public class Survey {
     private String description;
 
     @OneToMany(mappedBy = "survey", fetch = FetchType.EAGER)
-    private Set<SurveyQuestion> surveyQuestions = new HashSet<SurveyQuestion>();
+    private List<SurveyQuestion> surveyQuestions = new ArrayList<>();
 
     @OneToMany(mappedBy = "survey", fetch = FetchType.EAGER)
-    private Set<UserSurvey> userSurveys = new HashSet<UserSurvey>();
+    private List<UserSurvey> userSurveys = new ArrayList<UserSurvey>();
 
     public Survey(){
 
@@ -45,16 +43,25 @@ public class Survey {
     }
 
 
-    public Set<UserSurvey> getUserSurveys() {
+    public List<UserSurvey> getUserSurveys() {
         return userSurveys;
     }
 
-    public void setUserSurveys(Set<UserSurvey> userSurveys) {
+    public void setUserSurveys(List<UserSurvey> userSurveys) {
         this.userSurveys = userSurveys;
+    }
+
+    public List<SurveyQuestion> getSurveyQuestions() {
+        return surveyQuestions;
+    }
+
+    public void setSurveyQuestions(List<SurveyQuestion> surveyQuestions) {
+        this.surveyQuestions = surveyQuestions;
     }
 
     public void addQuestion(SurveyQuestion surveyQuestion) {
         surveyQuestion.setSurvey(this);
         surveyQuestions.add(surveyQuestion);
+
     }
 }

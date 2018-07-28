@@ -4,7 +4,7 @@ const SigninButton = document.getElementById("signin");
 const logoutButton = document.getElementById("logout");
 var datauser;
 
-
+getData();
 
 
 logoutButton.onclick = function () {
@@ -23,8 +23,7 @@ SigninButton.onclick = function (){
     var password = $("#newpassword").val();
     var email = $("#newemail").val();
     if (validateForm(password,email,username) == true ){
-        signin(username.val(),email,password);
-        login(email, password);
+        signin(username.val(),email,password)
     }};
 
 function login(username,password) {
@@ -38,7 +37,9 @@ function login(username,password) {
 function signin(username,email,password){
     console.log(username,email,password);
     $.post("/api/users", {  userName: username, email: email, password: password }).done(function()
-    { console.log("sign in!"); })
+    { console.log("sign in!")
+        login(email, password);
+    });
 
 }
 
@@ -76,7 +77,7 @@ function logout() {
 
 function getData() {
     $.ajax({
-        url: "/api/surveys",
+        url: "/api/user_info",
         dataType: 'json',
 
         success: function (data) {

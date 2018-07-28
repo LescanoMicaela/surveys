@@ -1,7 +1,9 @@
 package com.survey.surveys;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -16,7 +18,7 @@ public class User {
     private String password;
 
     @OneToMany(mappedBy="user", fetch=FetchType.EAGER)
-    Set<UserSurvey> userSurveys = new LinkedHashSet<>();
+    List<UserSurvey> userSurveys = new ArrayList<>();
 
     public User() {
 
@@ -56,11 +58,11 @@ public class User {
         this.email = email;
     }
 
-    public Set<UserSurvey> getUserSurveys() {
-        return userSurveys;
-    }
+//    public Set<UserSurvey> getUserSurveys() {
+//        return userSurveys;
+//    }
 
-    public void setUserSurveys(Set<UserSurvey> userSurveys) {
+    public void setUserSurveys(List<UserSurvey> userSurveys) {
         this.userSurveys = userSurveys;
     }
 //    public String getPassword() {

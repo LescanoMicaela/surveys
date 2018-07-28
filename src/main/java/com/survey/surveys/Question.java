@@ -1,8 +1,7 @@
 package com.survey.surveys;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class Question {
@@ -14,10 +13,10 @@ public class Question {
 //    private String type;
 
     @OneToMany(mappedBy = "question", fetch = FetchType.EAGER)
-    private Set<SurveyQuestion> surveyQuestions = new HashSet<SurveyQuestion>();
+    private List<SurveyQuestion> surveyQuestions = new ArrayList<>();
 
     @OneToMany(mappedBy = "question", fetch = FetchType.EAGER)
-    private Set<UserSurveyAnswer> userSurveyAnswer = new HashSet<UserSurveyAnswer>();
+    private List<UserSurveyAnswer> userSurveyAnswers = new ArrayList<UserSurveyAnswer>();
 
 
 
@@ -53,19 +52,23 @@ public class Question {
 //        this.type = type;
 //    }
 
-    public Set<SurveyQuestion> getSurveyQuestions() {
-        return surveyQuestions;
-    }
+//    public Set<SurveyQuestion> getSurveyQuestions() {
+//        return surveyQuestions;
+//    }
 
-    public void setSurveyQuestions(Set<SurveyQuestion> surveyQuestions) {
+    public void setSurveyQuestions(List<SurveyQuestion> surveyQuestions) {
         this.surveyQuestions = surveyQuestions;
     }
 
-    public Set<UserSurveyAnswer> getUserSurveyAnswer() {
-        return userSurveyAnswer;
+    public List<UserSurveyAnswer> getUserSurveyAnswers() {
+        return userSurveyAnswers;
     }
 
-    public void setUserSurveyAnswer(Set<UserSurveyAnswer> userSurveyAnswer) {
-        this.userSurveyAnswer = userSurveyAnswer;
+    public UserSurveyAnswer getUserSurveyAnswer(User user) {
+        return userSurveyAnswers.stream().filter(usa ->usa.getUserSurvey().getUser().equals(user)).findFirst().orElse(null);
+    }
+
+    public void setUserSurveyAnswer(List<UserSurveyAnswer> userSurveyAnswer) {
+        this.userSurveyAnswers = userSurveyAnswer;
     }
 }

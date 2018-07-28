@@ -1,9 +1,7 @@
 package com.survey.surveys;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class UserSurvey {
@@ -21,7 +19,7 @@ public class UserSurvey {
     private Survey survey;
 
     @OneToMany(mappedBy = "userSurvey", fetch = FetchType.EAGER)
-    private Set<UserSurveyAnswer> userSurveyAnswer = new LinkedHashSet<UserSurveyAnswer>();
+    private List<UserSurveyAnswer> userSurveyAnswer = new ArrayList<>();
 
     UserSurvey(){
 
@@ -32,6 +30,14 @@ public class UserSurvey {
         this.survey = survey;
 
     }
+
+//    public Set<UserSurveyAnswer> getUserSurveyAnswers() {
+//        return userSurveyAnswer;
+//    }
+
+//    public void setUserSurveyAnswers(Set<UserSurveyAnswer> userSurveyAnswer) {
+//        this.userSurveyAnswer = userSurveyAnswer;
+//    }
 
     public Long getId() {
         return id;

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="uft-8">
+    <title>Question</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles/surveystyle.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="jumbotron text-center" >
+    <h1>Welcome to the Surveys!</h1>
+    <p>Your answer will help us</p>
+</div>
+
+<div class="container">
+    <div class="row surveyrow">
+        <div class="col-sm-12">
+            <div class="d-flex justify-content-center surveyContainer">
+                <div id="surveyPresentation">
+                    <h1 id="surveyTitle">Survey</h1>
+                    <button id="startSurvey">Start</button>
+                </div>
+
+                <div id="surveyLayout">
+                    <h1 id="question"></h1>
+                    <input type="text" id="answer"/>
+                    <button id="next">Next</button>
+                    <button id="submit">Submit</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="container">
+    <div class="progress" style="height:20px">
+        <div id="progressBar" class="progress-bar"></div>
+    </div>
+</div>
+
+<!--
+
+		<script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+-->
+<script src="scripts/survey.js"></script>
+</body>
+</html>

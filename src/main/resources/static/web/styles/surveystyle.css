@@ -1,0 +1,22 @@
+#submit{
+    display: none;
+}
+
+#surveyLayout{
+    display: none;
+}
+
+
+#progressBar{
+    width:1%;
+    height:20px;
+}
+
+.surveyrow{
+    height:15em;
+}
+
+.jumbotron {
+    background-color:#007bff85 !important;
+    color: white;
+}
