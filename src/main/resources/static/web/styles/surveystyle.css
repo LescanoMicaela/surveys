@@ -59,6 +59,21 @@
 .form-group input{
     background-color: #ffffff3d;
 }
+.loader{
+    align-content: center;
+    display: flex;
+    position: fixed;
+    justify-content: center;
+    width: 100vh;
+    z-index: 20000;
+    height: 100vh;
+    background-color: #2b2b2ba8;
+}
+.loader img{
+    width: 10%;
+    height: 10%;
+    align-self: center;
+}
 #login,#signin{
     color: white;
     background-color: #7abaff;

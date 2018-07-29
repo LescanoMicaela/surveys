@@ -42,6 +42,7 @@ function showQuestions(){
     $("#next").click(function(){
         counter +=1;
         widthProgressBar();
+        postUserSurveyQuestion();
         if ( survey["survey-info"].QnA[counter] == undefined){
 
             $("#question").text("Thank you");
@@ -54,6 +55,7 @@ function showQuestions(){
             $("#surveyLayout").hide();
             $("#question").text(survey["survey-info"].QnA[counter].question);
             $("#surveyLayout").slideToggle(500);
+
 
 
         }
@@ -76,7 +78,7 @@ function postUserSurveyQuestion() {
     var surveyQuestionid = survey["survey-info"].QnA[counter].id;
     $.post({
         url: "/api/userSurveys/" + userSurveyid + "/userSurveyAnswer",
-        data: JSON.stringify({answer: $("#answer").val()},{surveyQuestionid}),
+        data: JSON.stringify({answer: $("#answer").val(), id: surveyQuestionid}),
         dataType: "text",
         contentType: "application/json"
     }).done(function () {

@@ -6,6 +6,15 @@ var datauser;
 
 getData();
 
+$(document).ajaxStart(function(){
+    $("#loader").css("display", "flex");
+});
+
+$(document).ajaxComplete(function(){
+    $("#loader").css("display", "none");
+});
+
+
 
 // logoutButton.onclick = function () {
 //     logout();

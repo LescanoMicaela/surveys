@@ -23,7 +23,7 @@ function hideLogingButtonsandWelcome(){
         buttonTologAndSignin.show();
     }else{
        logOutButton.show();
-       welcomeMessage.text(", "+ datauser.currentUser.userName);
+       welcomeMessage.text(", "+ datauser.currentUser.name);
        buttonTologAndSignin.hide();
     }
 }

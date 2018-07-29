@@ -32,13 +32,14 @@ public class SurveyController {
     public Map<String,Object> makeSurveyDTO(Authentication auth) {
         Map<String,Object> dto = new LinkedHashMap<>();
         if (auth !=null) {
-            dto.put("currentUser", currentUser(auth));
+            dto.put("currentUser",  makeUserDTO(currentUser(auth)));
         }else{
             dto.put("currentUser", null);
         }
         return dto;
 
     }
+
 
     public Map<String,Object> makeUserDTO(User user) {
         Map<String, Object> userDTO = new LinkedHashMap<>();
@@ -162,7 +163,7 @@ public class SurveyController {
 
     @RequestMapping(path = "userSurveys/{nn}/userSurveyAnswer", method = RequestMethod.POST)
     public ResponseEntity<Map<String, Object>> postUserSurveyAnswer(@PathVariable Long nn, Authentication authentication,
-                                                                    @RequestBody UserSurveyAnswer answer, @RequestBody Long idSurveyQuestion) {
+                                                                    @RequestBody Map<String,String> myMap) {
         UserSurvey userSurveynn = userSurveyRepo.findOne(nn);
         List<SurveyQuestion> questions = userSurveynn.getSurvey().getSurveyQuestions();
 //
@@ -172,10 +173,13 @@ public class SurveyController {
             return new ResponseEntity<>(makeMap("error", "No such survey for this user"), HttpStatus.UNAUTHORIZED);
         } else if ( userSurveynn.getUser() != currentUser(authentication)){
             return new ResponseEntity<>(makeMap("error", "Not your survey"), HttpStatus.UNAUTHORIZED);
-        } else if ( answer.getAnswer() == ""){
-            return new ResponseEntity<>(makeMap("error","Answer can't be blank"), HttpStatus.FORBIDDEN);
+//        } else if ( myMap.get("answer").getAnswer() == ""){
+//            return new ResponseEntity<>(makeMap("error","Answer can't be blank"), HttpStatus.FORBIDDEN);
         } else {
-           SurveyQuestion surveyQuestion = surveyQuestionRepo.findOne(idSurveyQuestion);
+            Long surveyQuestionID = Long.valueOf(myMap.get("id"));
+            UserSurveyAnswer answer = new UserSurveyAnswer();
+            SurveyQuestion surveyQuestion = surveyQuestionRepo.findOne(surveyQuestionID);
+            answer.setAnswer(myMap.get("answer"));
             answer.setQuestion(surveyQuestion.getQuestion());
             answer.setUserSurvey(userSurveynn);
             userSurveyAnswerRepo.save(answer);
@@ -183,6 +187,12 @@ public class SurveyController {
             return new ResponseEntity<>(makeMap("SUCCESS", "Answered saved "),(HttpStatus.CREATED));
         }
     }
+//    public UserSurveyAnswer(UserSurvey userSurvey, Question question, String answer){
+//        this.userSurvey= userSurvey;
+//        this.question = question;
+//        this.answer = answer;
+//
+//    }
 
 
 
