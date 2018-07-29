@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign up!</title>
+    <link rel="stylesheet" href="styles/surveystyle.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <div class="row justify-content-md-center signup">
+        <div class="col-sm-4">
+            <div class="exit">
+                <img src="images/211651-32.png" alt="exit" id="exit">
+            </div>
+            <div  id="sigin-form" class="loginform">
+                <h1>Sign up!</h1>
+
+                <div class="form-group">
+
+                    <label for="newusername">Username:</label>
+                    <input type="text" class="form-control" id="newusername" required>
+                </div>
+                <div class="form-group">
+                    <label for="newemail">Email address:</label>
+                    <input type="email" class="form-control" id="newemail" require>
+                </div>
+                <div class="form-group">
+                    <label for="newpassword">Password:</label>
+                    <input type="password" class="form-control" id="newpassword" pattern=".{6,}" title="Six or more characters" required>
+                </div>
+                <div id="alert" class="alertform"></div>
+                <button type="submit"  id="signin" class="btn btn-default">Sign up</button>
+                <a class="customA" href="login.html">Already have an account? Log in!</a>
+            </div>
+
+        </div>
+    </div>
+
+    <!--<form id="login-form" onsubmit="return false">-->
+    <!--<h1>Log in!</h1>-->
+    <!--<label>Name: <input type="text" name="username" id="username"></label>-->
+    <!--<label>Password: <input type="password" name="password"  id="password"></label>-->
+    <!--<button id="login">Log in</button>-->
+    <!--<p>Don't have an account? Join us today!</p>-->
+    <!--</form>-->
+
+
+</div>
+
+<script src="scripts/auth.js"></script>
+<script src="scripts/authsignup.js"></script>
+</body>
+</html>

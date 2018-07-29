@@ -130,13 +130,16 @@ public class SurveyController {
     @RequestMapping(path = "/users", method = RequestMethod.POST)
     public ResponseEntity<Map<String, Object>> createUser(@RequestParam String userName, @RequestParam String password,@RequestParam String email) {
         if (email.isEmpty() || password.isEmpty() ) {
-            return new ResponseEntity<>(makeMap("error", "empty field"), HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(makeMap("error", "Empty fields must be filled"), HttpStatus.FORBIDDEN);
         }
         User user = userRepo.findByEmail(email);
         User username = userRepo.findByUserName(userName);
-
-        if ( (user != null ) || (username !=null)) {
+        if ( user != null ) {
             return new ResponseEntity<>(makeMap("error", "User already exists"), HttpStatus.CONFLICT);
+        }
+
+        if (username !=null) {
+            return new ResponseEntity<>(makeMap("error", "Username already in use"), HttpStatus.CONFLICT);
         }
         User newUser = userRepo.save(new User(userName, password,email));
 

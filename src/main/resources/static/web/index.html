@@ -3,32 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <title>Surveys</title>
+    <link rel="stylesheet" href="styles/surveystyle.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <h1 id="welcomeMessage"></h1>
 
-    <form id="login-form" onsubmit="return false">
-        <label>Name: <input type="text" name="username" id="username"></label>
-        <label>Password: <input type="password" name="password"  id="password"></label>
-        <button id="login">Log in</button>
-    </form>
+    <div class="container">
 
 
-    <form id="sigin-form" onsubmit="return false">
-        <label>Name: <input type="text" name="username" id="newusername"></label>
-        <label>email: <input type="text" name="username" id="newemail"></label>
-        <label>Password: <input type="password" name="password" pattern=".{6,}" title="Six or more characters" id="newpassword"></label>
-        <button id="signin">Sign in</button>
-    </form>
+        <nav class="navbar navbar-expand-sm bg-white navbar-light flex-row-reverse">
+            <ul class="navbar-nav">
+                <li class="nav-item active" id="logout">
+                <p class="nav-link" href="index.html">LOG OUT</p>
+                </li>
+                <li class="nav-item loggedout">
+                    <a class="nav-link" href=login.html>LOG IN</a>
+                </li>
+                <li class="nav-item loggedout">
+                    <a class="nav-link" href="signup.html">SIGN UP</a>
+                </li>
+            </ul>
+        </nav>
+        <div class="jumbotron text-center" >
+            <h1>Welcome to the Surveys<span id="userName"></span>!</h1>
+            <p>Your opinion is important to us!</p>
+        </div>
 
-    <form id="logout-form" onsubmit="return false">
-        <button id="logout">Log out</button>
-    </form>
+        <div>
+        </div>
 
-    <div id="alert"></div>
+
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="scripts/auth.js"></script>
+    <script src="scripts/authlogout.js"></script>
+    <script src="scripts/main.js"></script>
 
 </body>
 </html>

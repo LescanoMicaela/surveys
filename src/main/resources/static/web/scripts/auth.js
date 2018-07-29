@@ -1,47 +1,68 @@
-const loginForm = document.getElementById("login-form");
-const loginButton = document.getElementById("login");
-const SigninButton = document.getElementById("signin");
-const logoutButton = document.getElementById("logout");
+// const loginForm = document.getElementById("login-form");
+// const loginButton = document.getElementById("login");
+// const SigninButton = document.getElementById("signin");
+// const logoutButton = document.getElementById("logout");
 var datauser;
 
 getData();
 
 
-logoutButton.onclick = function () {
-    logout();
-}
+// logoutButton.onclick = function () {
+//     logout();
+// }
 
-loginButton.onclick = function (){
-    var email= $("#username").val();
-    var password = $("#password").val();
-    if (validateForm(password,email,false) == true ){
-    login(email, password);
-}};
+// loginButton.onclick = function (){
+//     var email= $("#username").val();
+//     var password = $("#password").val();
+//     if (validateForm(password,email,false) == true ){
+//     login(email, password);
+// }};
 
-SigninButton.onclick = function (){
-    var username= $("#newusername");
-    var password = $("#newpassword").val();
-    var email = $("#newemail").val();
-    if (validateForm(password,email,username) == true ){
-        signin(username.val(),email,password)
-    }};
+// SigninButton.onclick = function (){
+//     var username= $("#newusername");
+//     var password = $("#newpassword").val();
+//     var email = $("#newemail").val();
+//     if (validateForm(password,email,username) == true ){
+//         signin(username.val(),email,password)
+//     }};
 
 function login(username,password) {
     console.log(username,password);
         $.post("/api/login", { email: username, password: password }
         ).done(function()
-        { console.log("logged in!"); })
+        { console.log("logged in!");
+            document.location.href="index.html"})
             .fail(function(){console.log("Wong email or password")})
+}
+function checkPwd(str) {
+     if (str.search(/[^a-zA-Z0-9\!\@\#\$\%\^\&\*\(\)\_\+]/) != -1) {
+    $("#alert").text("Password can only contain letters and numbers");
+    }else if (str.length < 6) {
+        $("#alert").text("Password must contain at least 6 characters");
+    } else if (str.length > 20) {
+        $("#alert").text("Password must contain less than 20 characters");
+    } else if (str.search(/\d/) == -1) {
+        $("#alert").text("Password must contain at least one number");
+    } else if (str.search(/[a-zA-Z]/) == -1) {
+        $("#alert").text("Password must contain at least one letter");
+    }else{
+        return true;
+    }
 }
 
 function signin(username,email,password){
     console.log(username,email,password);
-    $.post("/api/users", {  userName: username, email: email, password: password }).done(function()
-    { console.log("sign in!")
-        login(email, password);
-    });
+    if (checkPwd(password) == true){
 
+        $.post("/api/users", {  userName: username, email: email, password: password }).done(function()
+        { console.log("sign in!");
+            login(email, password);
+        }).fail(function(e){
+            $("#alert").text(e.responseJSON.error)
+        })};
 }
+
+
 
 function validateForm(password, email,username) {
 
@@ -71,7 +92,9 @@ function validateForm(password, email,username) {
 function logout() {
     $.post("/api/logout")
         .done(function() {
-            console.log("logged out"); })
+            console.log("logged out");
+            window.location.reload()
+        })
 }
 
 
