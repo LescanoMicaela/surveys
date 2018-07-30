@@ -22,6 +22,7 @@ public class NotificationService {
         //currentuser
 //        mail.setTo(user.getEmail());
         mail.setTo("lescano.micaela@gmail.com");
+        mail.setBcc("micaela@ubiqum.com");
         mail.setFrom("java.mail.testing.survey@gmail.com");
         mail.setSubject("Testing");
         mail.setText("This is the body of the email");

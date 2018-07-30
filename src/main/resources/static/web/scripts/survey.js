@@ -44,9 +44,10 @@ function showQuestions(){
     $("#next").click(function(){
         counter +=1;
         widthProgressBar();
-        postUserSurveyQuestion();
-        // answers.push[$("#answer").val()];
-        // surveyQuestionIDs.push[survey["survey-info"].QnA[counter-1].id];
+        // postUserSurveyQuestion();
+        answers.push($("#answer").val());
+        surveyQuestionIDs.push(""+ survey["survey-info"].QnA[counter-1].id);
+        $("#answer").val('');
         if ( survey["survey-info"].QnA[counter] == undefined){
 
             $("#question").text("Thank you");
@@ -79,10 +80,9 @@ function getAnswers(){
 
 function postUserSurveyQuestion() {
     var userSurveyid = survey["u-survey-id"];
-    var surveyQuestionid = survey["survey-info"].QnA[counter-1].id;
     $.post({
         url: "/api/userSurveys/" + userSurveyid + "/userSurveyAnswer",
-        data: JSON.stringify({answer: $("#answer").val(), id: surveyQuestionid}),
+        data: JSON.stringify({answer: answers , id: surveyQuestionIDs}),
         dataType: "text",
         contentType: "application/json"
     }).done(function () {

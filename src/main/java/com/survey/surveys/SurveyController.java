@@ -170,9 +170,8 @@ public class SurveyController {
 
     @RequestMapping(path = "userSurveys/{nn}/userSurveyAnswer", method = RequestMethod.POST)
     public ResponseEntity<Map<String, Object>> postUserSurveyAnswer(@PathVariable Long nn, Authentication authentication,
-                                                                    @RequestBody Map<String,String> myMap) {
+                                                                    @RequestBody Map<String,List<String>> myMap) {
         UserSurvey userSurveynn = userSurveyRepo.findOne(nn);
-        List<SurveyQuestion> questions = userSurveynn.getSurvey().getSurveyQuestions();
 //
         if ( authentication == null){
             return new ResponseEntity<>(makeMap("error", "You need to be logged in"), HttpStatus.UNAUTHORIZED);
@@ -183,28 +182,24 @@ public class SurveyController {
 //        } else if ( myMap.get("answer").getAnswer() == ""){
 //            return new ResponseEntity<>(makeMap("error","Answer can't be blank"), HttpStatus.FORBIDDEN);
         } else {
-            Long surveyQuestionID = Long.valueOf(myMap.get("id"));
-            UserSurveyAnswer answer = new UserSurveyAnswer();
-            SurveyQuestion surveyQuestion = surveyQuestionRepo.findOne(surveyQuestionID);
-            Long questionID = surveyQuestion.getQuestion().getId();
-//            UserSurveyAnswer userSurveyanser = surveyQuestion.getQuestion().getUserSurveyAnswer(currentUser(authentication));
-            if ( surveyQuestion.getQuestion().getUserSurveyAnswer(currentUser(authentication)) != null){
-                return new ResponseEntity<>(makeMap("error", "You already answered this question"), HttpStatus.FORBIDDEN);
-            } else{
-            answer.setAnswer(myMap.get("answer"));
-            answer.setQuestion(surveyQuestion.getQuestion());
-            answer.setUserSurvey(userSurveynn);
-            userSurveyAnswerRepo.save(answer);
+            List<String> answers = myMap.get("answer");
+            List<String> surveyQuestionIDs = myMap.get("id");
+            for ( int i= 0; i < answers.size(); i++){
+                Long surveyQuestionID = Long.valueOf(surveyQuestionIDs.get(i));
+                UserSurveyAnswer answer = new UserSurveyAnswer();
+                SurveyQuestion surveyQuestion = surveyQuestionRepo.findOne(surveyQuestionID);
 
-            return new ResponseEntity<>(makeMap("SUCCESS", "Answered saved "),(HttpStatus.CREATED));
-        }}
-    }}
-//    public UserSurveyAnswer(UserSurvey userSurvey, Question question, String answer){
-//        this.userSurvey= userSurvey;
-//        this.question = question;
-//        this.answer = answer;
-//
-//    }
+                    answer.setAnswer(answers.get(i));
+                    answer.setQuestion(surveyQuestion.getQuestion());
+                    answer.setUserSurvey(userSurveynn);
+                    userSurveyAnswerRepo.save(answer);
+                }
+        }
+        return new ResponseEntity<>(makeMap("SUCCESS", "Answered saved "),(HttpStatus.CREATED));
+        }
+    }
+
+
 
 
 
