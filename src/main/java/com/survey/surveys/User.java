@@ -1,5 +1,7 @@
 package com.survey.surveys;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -58,9 +60,10 @@ public class User {
         this.email = email;
     }
 
-//    public Set<UserSurvey> getUserSurveys() {
-//        return userSurveys;
-//    }
+    @JsonIgnore
+    public List<UserSurvey> getUserSurveys() {
+        return userSurveys;
+    }
 
     public void setUserSurveys(List<UserSurvey> userSurveys) {
         this.userSurveys = userSurveys;

@@ -27,3 +27,13 @@ function hideLogingButtonsandWelcome(){
        buttonTologAndSignin.hide();
     }
 }
+
+
+$("#create-UserSurvey").click(function createUserSurvey(){
+    // var url = $(this).data("id");
+    $.post("/api/user_survey")
+    .done(function(){ console.log("hola")})
+        .done(function(e){  window.location.href = "userSurvey.html?us=" +""+e["UserSurvey-id"]})
+        .fail( function(e){console.log(e.responseJSON.error)})
+
+});

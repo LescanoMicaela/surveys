@@ -41,6 +41,8 @@ public class SurveysApplication {
 			userRepo.save(mica);
 			userRepo.save(adonis);
 
+			//If you want to change the questions just replace them between the strings
+			//But the answered surveys will have the new questions.
 			Question q1 = new Question("Overall, how would you rate the quality of your customer service experience?");
 			Question q2 = new Question("How well did we understand your questions and concerns?");
 			Question q3 = new Question("How likely is it that you would recommend this company to a friend or colleague?");
@@ -68,7 +70,6 @@ public class SurveysApplication {
 
 
 			surveyQuestionrepo.save(new SurveyQuestion(survey1,q1));
-			surveyQuestionrepo.save(new SurveyQuestion(survey1,q10));
 			surveyQuestionrepo.save(new SurveyQuestion(survey1,q2));
 			surveyQuestionrepo.save(new SurveyQuestion(survey1,q3));
 			surveyQuestionrepo.save(new SurveyQuestion(survey1,q4));
@@ -77,6 +78,7 @@ public class SurveysApplication {
 			surveyQuestionrepo.save(new SurveyQuestion(survey1,q7));
 			surveyQuestionrepo.save(new SurveyQuestion(survey1,q8));
 			surveyQuestionrepo.save(new SurveyQuestion(survey1,q9));
+			surveyQuestionrepo.save(new SurveyQuestion(survey1,q10));
 
 			UserSurvey us1 = new UserSurvey(alasdair,survey1);
 			UserSurvey us2 = new UserSurvey(mica,survey1);

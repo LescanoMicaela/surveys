@@ -1,5 +1,7 @@
 var survey;
 var counter = 0;
+var answers = [];
+var surveyQuestionIDs= [];
 
 $(document).ready(function () {
     $.ajax({
@@ -43,6 +45,8 @@ function showQuestions(){
         counter +=1;
         widthProgressBar();
         postUserSurveyQuestion();
+        // answers.push[$("#answer").val()];
+        // surveyQuestionIDs.push[survey["survey-info"].QnA[counter-1].id];
         if ( survey["survey-info"].QnA[counter] == undefined){
 
             $("#question").text("Thank you");
@@ -75,7 +79,7 @@ function getAnswers(){
 
 function postUserSurveyQuestion() {
     var userSurveyid = survey["u-survey-id"];
-    var surveyQuestionid = survey["survey-info"].QnA[counter].id;
+    var surveyQuestionid = survey["survey-info"].QnA[counter-1].id;
     $.post({
         url: "/api/userSurveys/" + userSurveyid + "/userSurveyAnswer",
         data: JSON.stringify({answer: $("#answer").val(), id: surveyQuestionid}),

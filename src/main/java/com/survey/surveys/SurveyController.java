@@ -27,6 +27,8 @@ public class SurveyController {
     SurveyQuestionRepository surveyQuestionRepo;
     @Autowired
     NotificationService notificationService;
+    @Autowired
+    SurveyRepository surveyRepo;
 
     @RequestMapping("/user_info")
     public Map<String,Object> makeSurveyDTO(Authentication auth) {
@@ -43,36 +45,27 @@ public class SurveyController {
 
     public Map<String,Object> makeUserDTO(User user) {
         Map<String, Object> userDTO = new LinkedHashMap<>();
+
+
             userDTO.put("id", user.getId());
             userDTO.put("email", user.getEmail());
             userDTO.put("name", user.getUserName());
+        if ( user.getUserSurveys().size() > 0){
+            userDTO.put("anseredSurvey", true );
+        }else{
+            userDTO.put("anseredSurvey", false );
+        }
+
         return userDTO;
     }
 
-//    public Map<String,Object> makeSurveyDTO(Survey survey){
-//        Map<String, Object> surveyDTO = new LinkedHashMap<>();
-//            surveyDTO.put("survey-id", survey.getId());
-//            surveyDTO.put("survey-description", survey.getDescription());
-//            surveyDTO.put("survey-questions", survey.getSurveyQuestions().stream().map(sq -> makeSurveyQuestionDTO(sq)).collect(toList()));
-//        return surveyDTO;
-//    }
 
-//    public Map<String,Object> makeSurveyQuestionDTO(SurveyQuestion surveyQuestion){
-//        Map<String, Object> surveyDTO = new LinkedHashMap<>();
-//        surveyDTO.put("id", surveyQuestion.getId());
-//        surveyDTO.put("survey-question", surveyQuestion.getQuestion().getQuestion());
-////        surveyDTO.put("survey-question-answer", surveyQuestion.getQuestion().getUserSurveyAnswer());
-////        surveyDTO.put("survey-answer", surveyQuestion.getQuestion().getUserSurveyAnswer());
-//        return surveyDTO;
-//    }
 
     public Map<String,Object> makeUserSurveyDTO(UserSurvey userSurvey){
         Map<String, Object> surveyDTO = new LinkedHashMap<>();
-        List<SurveyQuestion> surveyQuestios = userSurvey.getSurvey().getSurveyQuestions();
+        List<SurveyQuestion> surveyQuestions = surveyRepo.findOne(Long.valueOf(1)).getSurveyQuestions();
         surveyDTO.put("id", userSurvey.getId());
-        surveyDTO.put("QnA", surveyQuestios.stream().map(sq -> makeQuestionandAnsweDTO(userSurvey, sq)).collect(toList()));
-//        surveyDTO.put("survey-question-answer", surveyQuestion.getQuestion().getUserSurveyAnswer());
-//        surveyDTO.put("survey-answer", surveyQuestion.getQuestion().getUserSurveyAnswer());
+        surveyDTO.put("QnA", surveyQuestions.stream().map(sq -> makeQuestionandAnsweDTO(userSurvey, sq)).collect(toList()));
         return surveyDTO;
     }
 
@@ -98,10 +91,11 @@ public class SurveyController {
 //        return UsersurveyDTO;
 //    }
 
+
+
     @RequestMapping("/user_survey_view/{usID}")
     public ResponseEntity<Map<String, Object>> userSurveyView(@PathVariable Long usID, Authentication authentication) {
         UserSurvey userSurvey = userSurveyRepo.findOne(usID);
-        Survey survey = userSurvey.getSurvey();
         if (authentication == null){
             return new ResponseEntity<>(makeMap("error", "You must log in to answer this survey"), HttpStatus.UNAUTHORIZED);
         }
@@ -161,6 +155,19 @@ public class SurveyController {
         return map;
     }
 
+    @RequestMapping(path = "/user_survey", method = RequestMethod.POST)
+    public ResponseEntity<Map<String, Object>> createUserSurvey(Authentication authentication){
+        Survey survey = surveyRepo.findOne(Long.valueOf(1));
+        if (authentication == null) {
+            return new ResponseEntity<>(makeMap("error", "You need to be logged in to create a game"), HttpStatus.UNAUTHORIZED);
+        }else if(currentUser(authentication).getUserSurveys().size() > 0) {
+            return new ResponseEntity<>(makeMap("error", "You already answered the survey"), HttpStatus.UNAUTHORIZED);
+        }else{
+            UserSurvey newUserSurvey = userSurveyRepo.save(new UserSurvey(currentUser(authentication),survey));
+            return new ResponseEntity<>(makeMap("UserSurvey-id", newUserSurvey.getId()),  HttpStatus.CREATED);
+        }
+    }
+
     @RequestMapping(path = "userSurveys/{nn}/userSurveyAnswer", method = RequestMethod.POST)
     public ResponseEntity<Map<String, Object>> postUserSurveyAnswer(@PathVariable Long nn, Authentication authentication,
                                                                     @RequestBody Map<String,String> myMap) {
@@ -179,14 +186,19 @@ public class SurveyController {
             Long surveyQuestionID = Long.valueOf(myMap.get("id"));
             UserSurveyAnswer answer = new UserSurveyAnswer();
             SurveyQuestion surveyQuestion = surveyQuestionRepo.findOne(surveyQuestionID);
+            Long questionID = surveyQuestion.getQuestion().getId();
+//            UserSurveyAnswer userSurveyanser = surveyQuestion.getQuestion().getUserSurveyAnswer(currentUser(authentication));
+            if ( surveyQuestion.getQuestion().getUserSurveyAnswer(currentUser(authentication)) != null){
+                return new ResponseEntity<>(makeMap("error", "You already answered this question"), HttpStatus.FORBIDDEN);
+            } else{
             answer.setAnswer(myMap.get("answer"));
             answer.setQuestion(surveyQuestion.getQuestion());
             answer.setUserSurvey(userSurveynn);
             userSurveyAnswerRepo.save(answer);
-            }
+
             return new ResponseEntity<>(makeMap("SUCCESS", "Answered saved "),(HttpStatus.CREATED));
-        }
-    }
+        }}
+    }}
 //    public UserSurveyAnswer(UserSurvey userSurvey, Question question, String answer){
 //        this.userSurvey= userSurvey;
 //        this.question = question;
