@@ -32,11 +32,33 @@
             <p>Your opinion is important to us!</p>
         </div>
 
-        <div class="row">
-            <div class="col-sm-9" style="background-color:lavender;">
-                <button id="create-UserSurvey">Survey</button>
+        <div id="loggedInview">
+            <div class="row" >
+                <div class="col-sm-10 center homeview"  id="notAnswered">
+                    <h2 class="text-center">Answer our survey now</h2>
+                    <div class="d-flex justify-content-center">
+                        <button id="create-UserSurvey">Go</button>
+                    </div>
+                </div>
             </div>
-            <div class="col-sm-3" style="background-color:lavenderblush;">Personal info</div>
+
+            <div class="row">
+                <div class="col-sm-10 center homeview"  id="answered" >
+                    <h2 class="text-center">See your answers</h2>
+                    <div class="d-flex justify-content-center">
+                        <button id="viewSurvey">View</button>
+                    </div>
+                </div>
+        </div>
+
+        </div>
+        <div id="loggedOutView">
+            <div class="row" >
+                <div class="col-sm-10 center homeview"  >
+                    <h2 class="text-center">You must be logged in to answer our survey</h2>
+                    </div>
+                </div>
+            </div>
         </div>
 
 

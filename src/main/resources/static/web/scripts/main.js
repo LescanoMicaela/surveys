@@ -13,18 +13,24 @@ function getData() {
         success: function (data) {
             datauser = data;
             console.log(datauser);
-            hideLogingButtonsandWelcome();
+            displayLoggedinAndLoggedOut();
         }
     })};
 
-function hideLogingButtonsandWelcome(){
+function displayLoggedinAndLoggedOut(){
     if (datauser.currentUser == null){
+        $("#loggedOutView").show();
+        $("#loggedInview").hide();
         logOutButton.hide();
         buttonTologAndSignin.show();
+
     }else{
+        $("#loggedOutView").hide();
+        $("#loggedInview").show();
        logOutButton.show();
        welcomeMessage.text(", "+ datauser.currentUser.name);
        buttonTologAndSignin.hide();
+       showButtonToAnsweredSurvey();
     }
 }
 
@@ -37,3 +43,16 @@ $("#create-UserSurvey").click(function createUserSurvey(){
         .fail( function(e){console.log(e.responseJSON.error)})
 
 });
+
+function showButtonToAnsweredSurvey(){
+    console.log(datauser.currentUser.anseredSurvey)
+    if(datauser.currentUser.anseredSurvey === true ){
+        console.log("hola")
+        $("#answered").show();
+        $("#notAnswered").hide();
+    }else{
+        $("#answered").hide();
+        $("#notAnswered").show();
+
+    }
+}

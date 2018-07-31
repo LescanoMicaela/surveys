@@ -12,48 +12,35 @@
 </head>
 <body>
 
-<div class="container">
-
-<div class="jumbotron text-center" >
-    <h1>Welcome to the Surveys!</h1>
-    <p>Your answer will help us</p>
-</div>
-
-
-    <div class="row surveyrow">
-        <div class="col-sm-12">
-            <div class="d-flex justify-content-center surveyContainer">
-                <div id="surveyPresentation">
-                    <h1 id="surveyTitle">Survey</h1>
-                    <button id="startSurvey">Start</button>
-                </div>
-
-                <div id="surveyLayout">
-                    <h1 id="question"></h1>
-                    <input type="text" id="answer"/>
-                    <button id="next">Next</button>
-                    <button id="submit">Submit</button>
+    <div class="container surveycontainer">
+        <div class="page-header">
+            <h1 id="surveyTitle"></h1>
+        </div>
+        <div class="row surveyrow">
+            <div class="col-sm-12">
+                <div class="d-flex justify-content-center surveyContainer">
+                    <div id="surveyPresentation">
+                        <button id="startSurvey">Start now</button>
+                    </div>
+                    <div id="surveyLayout">
+                        <h1 id="question"></h1>
+                        <input type="text" id="answer"/>
+                        <div class="inputForm">
+                            <div class="alertform" id="alert"></div>
+                        <img src="images/next.png" id="next">
+                        </div>
+                        <button id="submit">Submit</button>
+                    </div>
                 </div>
             </div>
-
         </div>
-
+    <div class="progressdiv">
+        <div class="progress" style="height:20px">
+            <div id="progressBar" class="progress-bar"></div>
+        </div>
     </div>
-    <div class="progress" style="height:20px">
-        <div id="progressBar" class="progress-bar"></div>
     </div>
-</div>
-<div class="container">
 
-</div>
-
-<!--
-
-		<script
-  src="https://code.jquery.com/jquery-3.3.1.js"
-  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-  crossorigin="anonymous"></script>
--->
 <script src="scripts/survey.js"></script>
 </body>
 </html>

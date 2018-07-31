@@ -9,7 +9,9 @@ $(document).ready(function () {
         dataType: 'json',
         success: function (data) {
             survey = data;
+            sortData(survey["survey-info"].QnA)
             showQuestions();
+            nameSurvey();
 
         },
         error: function () {
@@ -17,6 +19,16 @@ $(document).ready(function () {
         }
     })
 });
+
+function sortData(data) {
+    if (data != null) {
+        data.sort(function (a, b) {
+            var a1 = a.id, b1 = b.id;
+            if (a1 == b1) return 0;
+            return a1 > b1 ? 1 : -1;
+        });
+    }
+}
 
 function getParameterByName(name) {
     var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
@@ -33,6 +45,7 @@ function makeUrl() {
 
 
 $("#startSurvey").click(function(){
+    $(".progressdiv").toggle();
     $("#surveyPresentation").hide();
 //	$("#surveyPresentation").slideToggle();
     $("#surveyLayout").show(900);
@@ -41,33 +54,45 @@ $("#startSurvey").click(function(){
 
 function showQuestions(){
     $("#question").text(survey["survey-info"].QnA[0].question);
-    $("#next").click(function(){
-        counter +=1;
-        widthProgressBar();
+    $("#next").click(function changeQuestionDisplay(){
         // postUserSurveyQuestion();
-        answers.push($("#answer").val());
-        surveyQuestionIDs.push(""+ survey["survey-info"].QnA[counter-1].id);
-        $("#answer").val('');
-        if ( survey["survey-info"].QnA[counter] == undefined){
+        if($("#answer").val() != "" ){
+            counter +=1;
+            widthProgressBar();
+            answers.push($("#answer").val());
+            surveyQuestionIDs.push(""+ survey["survey-info"].QnA[counter-1].id);
+            $("#answer").val('');
+            if ( survey["survey-info"].QnA[counter] == undefined){
+                $("#surveyLayout").hide();
+                $("#question").text("Thank you");
+                $("#surveyLayout").slideToggle(500);
+                $("#next").hide();
+                $("#answer").hide();
+                postUserSurveyQuestion();
+            }else{
+                console.log(counter);
+                $("#surveyLayout").hide();
+                $("#question").text(survey["survey-info"].QnA[counter].question);
+                $("#surveyLayout").slideToggle(500);
 
-            $("#question").text("Thank you");
-            $("#next").hide();
-            $("#answer").hide();
-            $("#submit").show();
-
+            }
         }else{
-            console.log(counter);
-            $("#surveyLayout").hide();
-            $("#question").text(survey["survey-info"].QnA[counter].question);
-            $("#surveyLayout").slideToggle(500);
-
-
-
+            $("#alert").text("Answer can't be blank");
         }
 
     })
 
 }
+
+$('#answer').keypress(function(e){
+    if(e.which == 13){//Enter key pressed
+        $('#next').click();//Trigger search button click event
+    }
+});
+
+$("#answer").keyup(function(){
+    $("#alert").text("");
+});
 
 function widthProgressBar(){
     var progress = (counter*100) / survey["survey-info"].QnA.length;
@@ -92,4 +117,8 @@ function postUserSurveyQuestion() {
             $("#alert").text(e.responseText)
         });
 
+}
+
+function nameSurvey(){
+    var h1 = $("#surveyTitle").text(survey["survey-info"].description);
 }

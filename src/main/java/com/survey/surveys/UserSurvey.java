@@ -1,5 +1,7 @@
 package com.survey.surveys;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.*;
 
@@ -31,9 +33,10 @@ public class UserSurvey {
 
     }
 
-//    public Set<UserSurveyAnswer> getUserSurveyAnswers() {
-//        return userSurveyAnswer;
-//    }
+    @JsonIgnore
+    public List<UserSurveyAnswer> getUserSurveyAnswers() {
+        return userSurveyAnswer;
+    }
 
 //    public void setUserSurveyAnswers(Set<UserSurveyAnswer> userSurveyAnswer) {
 //        this.userSurveyAnswer = userSurveyAnswer;
@@ -55,9 +58,9 @@ public class UserSurvey {
         this.user = user;
     }
 
-    public Survey getSurvey() {
-        return survey;
-    }
+//    public Survey getSurvey() {
+//        return survey;
+//    }
 
     public void setSurvey(Survey survey) {
         this.survey = survey;

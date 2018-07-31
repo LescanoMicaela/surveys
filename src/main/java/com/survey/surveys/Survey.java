@@ -12,7 +12,7 @@ public class Survey {
     private String description;
 
     @OneToMany(mappedBy = "survey", fetch = FetchType.EAGER)
-    private List<SurveyQuestion> surveyQuestions = new ArrayList<>();
+    private Set<SurveyQuestion> surveyQuestions = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "survey", fetch = FetchType.EAGER)
     private List<UserSurvey> userSurveys = new ArrayList<UserSurvey>();
@@ -51,11 +51,11 @@ public class Survey {
         this.userSurveys = userSurveys;
     }
 
-    public List<SurveyQuestion> getSurveyQuestions() {
+    public Set<SurveyQuestion> getSurveyQuestions() {
         return surveyQuestions;
     }
 
-    public void setSurveyQuestions(List<SurveyQuestion> surveyQuestions) {
+    public void setSurveyQuestions(LinkedHashSet<SurveyQuestion> surveyQuestions) {
         this.surveyQuestions = surveyQuestions;
     }
 
