@@ -3,13 +3,15 @@ var counter = 0;
 var answers = [];
 var surveyQuestionIDs= [];
 
+
 $(document).ready(function () {
+
     $.ajax({
         url: makeUrl(),
         dataType: 'json',
         success: function (data) {
             survey = data;
-            sortData(survey["survey-info"].QnA)
+            sortData(survey["survey-info"].QnA);
             showQuestions();
             nameSurvey();
 
@@ -37,6 +39,7 @@ function getParameterByName(name) {
 
 function makeUrl() {
     var userSurveyID = getParameterByName("us");
+    console.log(userSurveyID);
     return '/api/user_survey_view/' + userSurveyID;
 }
 
@@ -112,6 +115,8 @@ function postUserSurveyQuestion() {
         contentType: "application/json"
     }).done(function () {
         console.log("answer saved");
+        window.location.href = "index.html"
+
     }).fail(
         function (e) {
             $("#alert").text(e.responseText)

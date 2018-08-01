@@ -44,6 +44,13 @@ $("#create-UserSurvey").click(function createUserSurvey(){
 
 });
 
+$("#viewSurvey").click(function viewUserSurvey(){
+    window.location.href = "answeredSurvey.html?us=" +""+datauser.currentUser.UserSurveyID;
+
+
+
+});
+
 function showButtonToAnsweredSurvey(){
     console.log(datauser.currentUser.anseredSurvey)
     if(datauser.currentUser.anseredSurvey === true ){

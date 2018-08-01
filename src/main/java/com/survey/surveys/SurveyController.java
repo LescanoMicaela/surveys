@@ -53,6 +53,7 @@ public class SurveyController {
             userDTO.put("name", user.getUserName());
         if ( usersa.size() > 0){
             userDTO.put("anseredSurvey", true );
+            userDTO.put("UserSurveyID",currentUser(authentication).getUserSurveys().get(1).getId());
         }else{
             userDTO.put("anseredSurvey", false );
         }
@@ -165,6 +166,8 @@ public class SurveyController {
         Survey survey = surveyRepo.findOne(Long.valueOf(1));
         if (authentication == null) {
             return new ResponseEntity<>(makeMap("error", "You need to be logged answer"), HttpStatus.UNAUTHORIZED);
+        }else if (currentUser(authentication).getUserSurveys().size() > 0) {
+            return new ResponseEntity<>(makeMap("UserSurvey-id", currentUser(authentication).getUserSurveys().get(0).getId() ), HttpStatus.OK);
         }else{
             List<Object> usersa = currentUser(authentication).getUserSurveys().stream().filter(us -> us.getUserSurveyAnswers().size() > 0).collect(Collectors.toList());
             if( usersa.size() > 0){
