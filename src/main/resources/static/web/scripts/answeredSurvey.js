@@ -1,3 +1,5 @@
+setTimeout(function(){ $("body").show() }, 100);
+
 var survey;
 $(document).ready(function () {
 
@@ -12,7 +14,7 @@ $(document).ready(function () {
 
         },
         error: function () {
-            console.log("This is not your survey")
+            window.location.href = "index.html";
         }
     })
 });
@@ -46,11 +48,13 @@ function printQuestions(){
     for (var i=0; i < survey["survey-info"].QnA.length; i++){
         var div = document.createElement("div");
         var h2 = document.createElement("h2");
-        var p = document.createElement("p");
+        h2.setAttribute("class","question");
+        var h3 = document.createElement("h3");
+        h3.setAttribute("class","answer");
         h2.textContent=survey["survey-info"].QnA[i].question;
-        p.textContent=survey["survey-info"].QnA[i].answer;
+        h3.textContent=survey["survey-info"].QnA[i].answer;
         div.appendChild(h2);
-        div.appendChild(p);
+        div.appendChild(h3);
         divContainer.appendChild(div);
     }
 }

@@ -1,3 +1,5 @@
+setTimeout(function(){ $("body").show() }, 100);
+
 var survey;
 var counter = 0;
 var answers = [];
@@ -16,11 +18,24 @@ $(document).ready(function () {
             nameSurvey();
 
         },
+        complete: function(){
+            toggleQuestion();
+        },
         error: function () {
+            window.location.href = "index.html";
             console.log("This is not your survey")
         }
     })
 });
+
+$(document).ajaxStart(function(){
+    $("#loader").css("display", "flex");
+});
+
+$(document).ajaxComplete(function(){
+    $("#loader").css("display", "none");
+});
+
 
 function sortData(data) {
     if (data != null) {
@@ -44,16 +59,9 @@ function makeUrl() {
 }
 
 
-
-
-
-$("#startSurvey").click(function(){
-    $(".progressdiv").toggle();
-    $("#surveyPresentation").hide();
-//	$("#surveyPresentation").slideToggle();
-    $("#surveyLayout").show(900);
-
-})
+function toggleQuestion(){
+	$("#surveyPresentation").slideToggle(600);
+}
 
 function showQuestions(){
     $("#question").text(survey["survey-info"].QnA[0].question);

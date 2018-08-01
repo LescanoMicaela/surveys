@@ -71,4 +71,6 @@ public class Question {
     public void setUserSurveyAnswer(List<UserSurveyAnswer> userSurveyAnswer) {
         this.userSurveyAnswers = userSurveyAnswer;
     }
+
+
 }

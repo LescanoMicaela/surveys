@@ -36,7 +36,6 @@ $(document).ajaxComplete(function(){
 //     }};
 
 function login(username,password) {
-    console.log(username,password);
         $.post("/api/login", { email: username, password: password }
         ).done(function()
         { console.log("logged in!");
@@ -60,7 +59,6 @@ function checkPwd(str) {
 }
 
 function signin(username,email,password){
-    console.log(username,email,password);
     if (checkPwd(password) == true){
 
         $.post("/api/users", {  userName: username, email: email, password: password }).done(function()

@@ -1,14 +1,28 @@
-#submit,#startSurvey,#create-UserSurvey{
+body{
+    display:none;
+}
+#submit,#startSurvey{
     border-radius: 20px;
     background-color: #7abaff;
     color: white;
     align-self: center;
 }
+
+#create-UserSurvey {
+
+    border-radius: 10px;
+    background-color: #c3c3c3;
+    color: white;
+    align-self: center;
+    font-size: x-large;
+    padding-bottom: 1%;
+}
+
 #next{
     margin-left: 1%;
     margin-bottom: 3%;
 }
-#surveyLayout{
+#surveyPresentation{
     display: none;
 
 }
@@ -35,9 +49,9 @@
     height:20px;
 }
 
-.progressdiv{
-    display: none;
-}
+/*.progressdiv{*/
+    /*display: none;*/
+/*}*/
 
 .surveyrow{
     height:23em;
@@ -52,6 +66,7 @@
     background-color:#007bff85 !important;
     color: white;
     margin-bottom: 0 !important;
+    padding: 2rem 2rem !important;
 }
 
 .cointainer {
@@ -74,7 +89,9 @@
     align-items: center;
     justify-content: center !important;
     width: 100%;
-    margin: 0 !important;;
+    margin: 0 !important;
+    padding-top: 4rem;
+
 }
 .loginform{
     color:white;
@@ -161,7 +178,64 @@
     display: flex;
     flex-direction: column;
 }
-
+.homeview h2{
+    cursor: pointer !important;
+    color: #515151 !important;
+    margin-bottom: 2rem !important;
+}
+.homeview h2:hover{
+    color: #808080 !important;
+}
 #answered{
     display:none;
+}
+
+#youMustLog{
+-webkit-animation: color-change 2s infinite;
+-moz-animation: color-change 2s infinite;
+-o-animation: color-change 2s infinite;
+-ms-animation: color-change 2s infinite;
+animation: color-change 2s infinite;
+}
+
+@-webkit-keyframes color-change {
+    0% { color: black; }
+    50% { color: blue; }
+    100% { color: green; }
+}
+@-moz-keyframes color-change {
+    0% { color: black; }
+    50% { color: blue; }
+    100% { color: green; }
+}
+@-ms-keyframes color-change {
+    0% { color: #8bc3ff; }
+    50% { color: white; }
+    100% { color: #8bc3ff; }
+}
+@-o-keyframes color-change {
+    0% { color: #8bc3ff; }
+    50% { color: white; }
+    100% { color: #8bc3ff; }
+}
+@keyframes color-change {
+    0% { color: #8bc3ff; }
+    50% { color: white; }
+    100% { color: #8bc3ff; }
+}
+
+.question{
+    font-style: italic;
+    color: gray;
+    margin-top: 3%;
+    font-size:150%;
+}
+
+.answer{
+    margin: 2%;
+    font-size:150%;
+}
+
+#answeredSurvey{
+    padding-bottom: 4%;
 }

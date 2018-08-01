@@ -6,29 +6,38 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import java.awt.*;
+
 @Service
 public class NotificationService {
 
     private JavaMailSender javaMailSender;
+    private String email;
+    private String email2;
+    private String subject;
+
 
     @Autowired
     public NotificationService(JavaMailSender javaMailSender){
         this.javaMailSender = javaMailSender;
     }
 
-    public void sendNotifiction(User user) throws MailException {
+    public void sendNotifiction(User user, String email, String emailfrom, String subject, String body) throws MailException {
         SimpleMailMessage mail = new SimpleMailMessage();
 
-        //currentuser
-//        mail.setTo(user.getEmail());
-        mail.setTo("lescano.micaela@gmail.com");
-        mail.setBcc("micaela@ubiqum.com");
-        mail.setFrom("java.mail.testing.survey@gmail.com");
-        mail.setSubject("Testing");
-        mail.setText("This is the body of the email");
+//        currentuser
+        mail.setTo(user.getEmail());
+        mail.setBcc(email);
+        mail.setFrom(emailfrom);
+        mail.setSubject(subject);
+        mail.setText(body);
 
-        //send a notification
+//        send a notification
         javaMailSender.send(mail);
 
     }
+
+
+
 }
+

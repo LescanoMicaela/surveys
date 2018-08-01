@@ -1,9 +1,8 @@
-
+setTimeout(function(){ $("body").show() }, 100);
 const welcomeMessage = $("#userName");
 var datauser;
 const logOutButton = $("#logout");
 const buttonTologAndSignin = $(".loggedout");
-
 getData();
 function getData() {
     $.ajax({

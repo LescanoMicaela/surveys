@@ -1,3 +1,5 @@
+setTimeout(function(){ $("body").show() }, 100);
+
 const loginButton = document.getElementById("login");
 
 loginButton.onclick = function (){

@@ -58,9 +58,10 @@ public class UserSurvey {
         this.user = user;
     }
 
-//    public Survey getSurvey() {
-//        return survey;
-//    }
+    @JsonIgnore
+    public Survey getSurvey() {
+        return survey;
+    }
 
     public void setSurvey(Survey survey) {
         this.survey = survey;

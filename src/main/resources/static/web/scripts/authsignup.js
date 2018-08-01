@@ -1,3 +1,5 @@
+setTimeout(function(){ $("body").show() }, 100);
+
 const SigninButton = document.getElementById("signin");
 const exitIcon = document.getElementById("exit");
 

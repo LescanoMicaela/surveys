@@ -11,6 +11,7 @@
 </head>
 <body>
 
+
     <div class="container">
 
 
@@ -37,17 +38,17 @@
                 <div class="col-sm-10 center homeview"  id="notAnswered">
                     <h2 class="text-center">Answer our survey now</h2>
                     <div class="d-flex justify-content-center">
-                        <button id="create-UserSurvey">Go</button>
+                        <button id="create-UserSurvey">Take survey now</button>
                     </div>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-sm-10 center homeview"  id="answered" >
-                    <h2 class="text-center">See your answers</h2>
-                    <div class="d-flex justify-content-center">
-                        <button id="viewSurvey">View</button>
-                    </div>
+                    <h2 class="text-center" id="viewSurvey">View your answers<img src="images/arrow3.png"></h2>
+                    <!--<div class="d-flex justify-content-center">-->
+                        <!--<button id="viewSurvey">View your answers</button>-->
+                    <!--</div>-->
                 </div>
         </div>
 
@@ -55,7 +56,7 @@
         <div id="loggedOutView">
             <div class="row" >
                 <div class="col-sm-10 center homeview"  >
-                    <h2 class="text-center">You must be logged in to answer our survey</h2>
+                    <h2 id="youMustLog" class="text-center">You must be logged in to answer our survey</h2>
                     </div>
                 </div>
             </div>

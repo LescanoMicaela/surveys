@@ -53,7 +53,7 @@ public class SurveyController {
             userDTO.put("name", user.getUserName());
         if ( usersa.size() > 0){
             userDTO.put("anseredSurvey", true );
-            userDTO.put("UserSurveyID",currentUser(authentication).getUserSurveys().get(1).getId());
+            userDTO.put("UserSurveyID",currentUser(authentication).getUserSurveys().get(0).getId());
         }else{
             userDTO.put("anseredSurvey", false );
         }
@@ -102,21 +102,21 @@ public class SurveyController {
     @RequestMapping("/user_survey_view/{usID}")
     public ResponseEntity<Map<String, Object>> userSurveyView(@PathVariable Long usID, Authentication authentication) {
         UserSurvey userSurvey = userSurveyRepo.findOne(usID);
-        if (authentication == null){
+        if (authentication == null) {
             return new ResponseEntity<>(makeMap("error", "You must log in to answer this survey"), HttpStatus.UNAUTHORIZED);
-        }
-        if ( userSurvey.getUser().getId() != currentUser(authentication).getId() ){
-            return new ResponseEntity<>(makeMap("error",  "This survey is not for you"), HttpStatus.UNAUTHORIZED);
-
         } else {
+            if (userSurvey.getUser().getId() != currentUser(authentication).getId()) {
+                return new ResponseEntity<>(makeMap("error", "This survey is not for you"), HttpStatus.UNAUTHORIZED);
+
+            } else {
                 Map<String, Object> UsersurveyDTO = new LinkedHashMap<>();
                 UsersurveyDTO.put("u-survey-id", userSurvey.getId());
                 UsersurveyDTO.put("user", makeUserDTO(authentication));
-//                UsersurveyDTO.put("survey-info", makeSurveyDTO(userSurvey.getSurvey()));
                 UsersurveyDTO.put("survey-info", makeUserSurveyDTO(authentication));
-            return new ResponseEntity<>(UsersurveyDTO, HttpStatus.OK);
+                return new ResponseEntity<>(UsersurveyDTO, HttpStatus.OK);
             }
         }
+    }
 
 
     private User currentUser (Authentication authentication) {
@@ -145,15 +145,17 @@ public class SurveyController {
         User newUser = userRepo.save(new User(userName, password,email));
 
         //Sends emails when signup is successful.
-        try{
-            notificationService.sendNotifiction(newUser);
-        }catch(MailException e){
-            //catch error
-            return new ResponseEntity<>(makeMap("error", "couldnt send email"), HttpStatus.CONFLICT);
-        }
+//        try{
+//            notificationService.sendNotifiction(newUser);
+//        }catch(MailException e){
+//            //catch error
+//            return new ResponseEntity<>(makeMap("error", "couldnt send email"), HttpStatus.CONFLICT);
+//        }
 
         return new ResponseEntity<>(makeMap("Username", newUser.getUserName()) , HttpStatus.CREATED);
     }
+
+
 
     private Map<String, Object> makeMap(String key, Object value) {
         Map<String, Object> map = new HashMap<>();
@@ -205,13 +207,38 @@ public class SurveyController {
                     answer.setQuestion(surveyQuestion.getQuestion());
                     answer.setUserSurvey(userSurveynn);
                     userSurveyAnswerRepo.save(answer);
-                }
+            }
+            try{
+                String intromessage = "Thank you for answering out survey,";
+                String string2 = "Here are your answers:";
+                List<String> questions = surveyQuestionIDs.stream().map(id -> surveyQuestionRepo.findOne(Long.valueOf(id)).getQuestion().getQuestion()).collect(toList());
+                User user = currentUser(authentication);
+//                Arrays.toString((makeUserSurveyDTO(authentication)).entrySet().toArray()))
+                String message = makeListString(questions,answers,intromessage,string2);
+                notificationService.sendNotifiction(currentUser(authentication),"micaela@ubiqum.com","java.mail.testing.survey@gmail.com","Your answers", message);
+            }catch(MailException e){
+                //catch error
+                return new ResponseEntity<>(makeMap("error", "couldnt send email"), HttpStatus.CONFLICT);
+            }
         }
         return new ResponseEntity<>(makeMap("SUCCESS", "Answered saved "),(HttpStatus.CREATED));
         }
+
+    public String makeListString(List list1, List list2, String string1, String string2) {
+
+        List newList = new ArrayList();
+        newList.add(string1);
+        newList.add(string2);
+        newList.add("");
+        for ( int j= 0; j < list1.size(); j++) {
+            newList.add(list1.get(j));
+            newList.add(list2.get(j));
+        }
+        String finalString =  String.join( "\r\n ", newList) ;
+
+        return finalString;
     }
 
-
-
+}
 
 
