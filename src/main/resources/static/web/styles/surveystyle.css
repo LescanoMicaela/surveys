@@ -176,7 +176,7 @@ body,#surveyPresentation,#submit,#answered{
     color: #515151 !important;
     margin-bottom: 2rem !important;
 }
-.homeview h2:hover{
+#viewSurvey:hover{
     color: #808080 !important;
 }
 #create-UserSurvey:hover{
