@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="uft-8">
+    <meta charset="UTF-8">
     <title>Question</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles/surveystyle.css">
@@ -15,35 +15,33 @@
 <div class="loader" id="loader">
     <img src="images/loader.gif" alt="loader">
 </div>
-    <div class="container surveycontainer">
-        <div class="page-header">
-            <h1 id="surveyTitle"></h1>
-        </div>
-        <div class="row surveyrow">
-            <div class="col-sm-12">
-                <div class="d-flex justify-content-center surveyContainer">
-                    <div id="surveyPresentation">
-                        <!--<button id="startSurvey">Start now</button>-->
-
+<div class="container surveycontainer">
+    <div class="page-header">
+        <h1 id="surveyTitle"></h1>
+    </div>
+    <div class="row surveyrow">
+        <div class="col-sm-12">
+            <div class="d-flex justify-content-center surveyContainer">
+                <div id="surveyPresentation">
                     <div id="surveyLayout">
                         <h1 id="question"></h1>
                         <input type="text" id="answer"/>
                         <div class="inputForm">
                             <div class="alertform" id="alert"></div>
-                        <img src="images/next.png" id="next">
+                            <img src="images/next.png" id="next">
                         </div>
                         <button id="submit">Submit</button>
                     </div>
                 </div>
             </div>
         </div>
-            </div>
+    </div>
     <div class="progressdiv">
         <div class="progress" style="height:20px">
             <div id="progressBar" class="progress-bar"></div>
         </div>
     </div>
-    </div>
+</div>
 
 <script src="scripts/survey.js"></script>
 </body>

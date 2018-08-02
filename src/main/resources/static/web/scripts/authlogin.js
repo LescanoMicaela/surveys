@@ -12,14 +12,14 @@ loginButton.onclick = function (){
 function login(username,password) {
     console.log(username,password);
     $.post("/api/login", { email: username, password: password }
-    ).done(function()
-    { console.log("logged in!");
-        document.location.href="index.html"})
-        .fail(function(){$("#alert").text("Wong email or password")})
+    ).done( function(){goToHomePage()}
+    ).fail(function(){$("#alert").text("Wong email or password")})
 }
 
 const exitIcon = document.getElementById("exit");
 
-exitIcon.onclick = function(){
-    console.log("hola")
-    document.location.href="index.html"};
+exitIcon.onclick = function(){goToHomePage()};
+
+function goToHomePage(){
+    document.location.href="index.html"
+};

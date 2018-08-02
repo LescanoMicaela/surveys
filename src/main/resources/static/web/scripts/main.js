@@ -1,64 +1,85 @@
 setTimeout(function(){ $("body").show() }, 100);
+
 const welcomeMessage = $("#userName");
 var datauser;
-const logOutButton = $("#logout");
 const buttonTologAndSignin = $(".loggedout");
+
 getData();
+
 function getData() {
     $.ajax({
         url: "/api/user_info",
         dataType: 'json',
-
         success: function (data) {
             datauser = data;
-            console.log(datauser);
-            displayLoggedinAndLoggedOut();
+            changeDisplay();
         }
-    })};
+    })}
 
-function displayLoggedinAndLoggedOut(){
-    if (datauser.currentUser == null){
-        $("#loggedOutView").show();
-        $("#loggedInview").hide();
-        logOutButton.hide();
-        buttonTologAndSignin.show();
 
+function changeDisplay(){
+    if ( currentUser()){
+        displayLoggedIn();
     }else{
-        $("#loggedOutView").hide();
-        $("#loggedInview").show();
-       logOutButton.show();
-       welcomeMessage.text(", "+ datauser.currentUser.name);
-       buttonTologAndSignin.hide();
-       showButtonToAnsweredSurvey();
+        displayLoggedOut();
+    }
+}
+
+function currentUser(){
+    if (datauser.currentUser == null) {
+        return false;
+    }else{
+        return true;
     }
 }
 
 
+function displayLoggedIn(){
+    $("#loggedOutView").hide();
+    showElement("loggedInview");
+    showElement("logout");
+    welcomeMessage.text(", "+ datauser.currentUser.name);
+    buttonTologAndSignin.hide();
+    showButtonToAnsweredSurvey();
+}
+
+function displayLoggedOut() {
+    showElement("loggedOutView");
+    hideElement("loggedInview");
+    hideElement("logout");
+    buttonTologAndSignin.show();
+}
+
+
 $("#create-UserSurvey").click(function createUserSurvey(){
-    // var url = $(this).data("id");
     $.post("/api/user_survey")
-    .done(function(){ console.log("hola")})
         .done(function(e){  window.location.href = "userSurvey.html?us=" +""+e["UserSurvey-id"]})
         .fail( function(e){console.log(e.responseJSON.error)})
-
 });
+
 
 $("#viewSurvey").click(function viewUserSurvey(){
     window.location.href = "answeredSurvey.html?us=" +""+datauser.currentUser.UserSurveyID;
-
-
-
 });
 
+
 function showButtonToAnsweredSurvey(){
-    console.log(datauser.currentUser.anseredSurvey)
     if(datauser.currentUser.anseredSurvey === true ){
-        console.log("hola")
-        $("#answered").show();
-        $("#notAnswered").hide();
+        showElement("answered");
+        hideElement("notAnswered");
     }else{
-        $("#answered").hide();
-        $("#notAnswered").show();
+        hideElement("answered");
+        showElement("notAnswered");
 
     }
+}
+
+
+function showElement(elementid){
+    $("#"+elementid).show()
+}
+
+
+function hideElement(elementid){
+    $("#"+elementid).hide()
 }

@@ -1,22 +1,23 @@
 setTimeout(function(){ $("body").show() }, 100);
 
 var survey;
+var questionsAndAnswers;
 var counter = 0;
 var answers = [];
 var surveyQuestionIDs= [];
 
 
 $(document).ready(function () {
-
     $.ajax({
         url: makeUrl(),
         dataType: 'json',
         success: function (data) {
             survey = data;
-            sortData(survey["survey-info"].QnA);
+            questionsAndAnswers = survey["survey-info"].QnA;
+
+            sortData(questionsAndAnswers);
             showQuestions();
             nameSurvey();
-
         },
         complete: function(){
             toggleQuestion();
@@ -64,16 +65,16 @@ function toggleQuestion(){
 }
 
 function showQuestions(){
-    $("#question").text(survey["survey-info"].QnA[0].question);
+    $("#question").text(questionsAndAnswers[0].question);
     $("#next").click(function changeQuestionDisplay(){
         // postUserSurveyQuestion();
         if($("#answer").val() != "" ){
             counter +=1;
             widthProgressBar();
             answers.push($("#answer").val());
-            surveyQuestionIDs.push(""+ survey["survey-info"].QnA[counter-1].id);
+            surveyQuestionIDs.push(""+ questionsAndAnswers[counter-1].id);
             $("#answer").val('');
-            if ( survey["survey-info"].QnA[counter] == undefined){
+            if ( questionsAndAnswers[counter] == undefined){
                 $("#surveyLayout").hide();
                 $("#question").text("Thank you");
                 $("#surveyLayout").slideToggle(500);
@@ -83,7 +84,7 @@ function showQuestions(){
             }else{
                 console.log(counter);
                 $("#surveyLayout").hide();
-                $("#question").text(survey["survey-info"].QnA[counter].question);
+                $("#question").text(questionsAndAnswers[counter].question);
                 $("#surveyLayout").slideToggle(500);
 
             }
@@ -92,8 +93,8 @@ function showQuestions(){
         }
 
     })
-
 }
+
 
 $('#answer').keypress(function(e){
     if(e.which == 13){//Enter key pressed
@@ -106,7 +107,7 @@ $("#answer").keyup(function(){
 });
 
 function widthProgressBar(){
-    var progress = (counter*100) / survey["survey-info"].QnA.length;
+    var progress = (counter*100) / questionsAndAnswers.length;
     $("#progressBar").css("width", progress +"%");
 }
 
@@ -131,6 +132,7 @@ function postUserSurveyQuestion() {
         });
 
 }
+
 
 function nameSurvey(){
     var h1 = $("#surveyTitle").text(survey["survey-info"].description);

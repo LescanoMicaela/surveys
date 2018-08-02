@@ -2,7 +2,6 @@ setTimeout(function(){ $("body").show() }, 100);
 
 var survey;
 $(document).ready(function () {
-
     $.ajax({
         url: makeUrl(),
         dataType: 'json',
@@ -10,8 +9,6 @@ $(document).ready(function () {
             survey = data;
             sortData(survey["survey-info"].QnA);
             printQuestions();
-
-
         },
         error: function () {
             window.location.href = "index.html";
@@ -39,22 +36,25 @@ function makeUrl() {
     return '/api/user_survey_view/' + userSurveyID;
 }
 
-
-// survey["survey-info"].QnA[0].question
-// survey["survey-info"].QnA[0].answer
-
 function printQuestions(){
     var divContainer = document.getElementById("answeredSurvey");
+
     for (var i=0; i < survey["survey-info"].QnA.length; i++){
-        var div = document.createElement("div");
-        var h2 = document.createElement("h2");
-        h2.setAttribute("class","question");
-        var h3 = document.createElement("h3");
-        h3.setAttribute("class","answer");
-        h2.textContent=survey["survey-info"].QnA[i].question;
-        h3.textContent=survey["survey-info"].QnA[i].answer;
-        div.appendChild(h2);
-        div.appendChild(h3);
-        divContainer.appendChild(div);
+
+            var div = document.createElement("div");
+            var h2 = document.createElement("h2");
+            h2.setAttribute("class","question");
+            var h3 = document.createElement("h3");
+            h3.setAttribute("class","answer");
+            h2.textContent=survey["survey-info"].QnA[i].question;
+            h3.textContent=survey["survey-info"].QnA[i].answer;
+            div.appendChild(h2);
+            div.appendChild(h3);
+            divContainer.appendChild(div);
     }
 }
+
+
+function goToHomePage(){
+    document.location.href="index.html";
+};
