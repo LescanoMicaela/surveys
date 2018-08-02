@@ -122,6 +122,11 @@ body,#surveyPresentation,#submit,#answered{
 
 .nav-link:hover{
     color: #007bff85 !important;}
+#backHome{
+    position:fixed;
+    bottom: 8%;
+    right:12%;
+}
 
 #answer{
     width: 80%;

@@ -54,7 +54,9 @@ function printQuestions(){
     }
 }
 
-
+document.getElementById("backHome").onclick = function(){
+    goToHomePage();
+};
 
 function goToHomePage(){
     document.location.href="index.html";
