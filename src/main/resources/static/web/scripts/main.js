@@ -12,6 +12,7 @@ function getData() {
         dataType: 'json',
         success: function (data) {
             datauser = data;
+            console.log(datauser)
             changeDisplay();
         }
     })}

@@ -13,7 +13,7 @@ $(document).ajaxComplete(function(){
 
 
 function login(username,password) {
-        $.post("/api/login", { email: username, password: password }
+        $.post("/api/login", { userName: username, password: password }
         ).done(function()
         {document.location.href="index.html"}
         ).fail(function(){makeAlert("Wrong email or password")})
@@ -42,7 +42,7 @@ function makeAlert(text){
 function signin(username,email,password){
     if (checkPwd(password) == true){
         $.post("/api/users", {  userName: username, email: email, password: password }
-        ).done(function() { login(email, password)}
+        ).done(function() { login(username, password)}
         ).fail(function(e){makeAlert(e.responseJSON.error)})
     }
 }
@@ -60,7 +60,7 @@ function validateForm(password, email,username) {
         return false;
 
     } if (username){
-        if (username.val().trim().length === 0){
+        if (username.trim().length === 0){
             $("#alert").html('Username can not be blank');
             return false;
         }else{

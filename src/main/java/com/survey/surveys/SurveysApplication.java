@@ -102,7 +102,7 @@ class WebSecurityConfiguration extends GlobalAuthenticationConfigurerAdapter {
 	@Override
 	public void init(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(inputName-> {
-			User user = userRepository.findByEmail(inputName);
+			User user = userRepository.findByUserName(inputName);
 			if (user != null) {
 				return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
 						AuthorityUtils.createAuthorityList("USER"));
@@ -123,7 +123,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("**").permitAll()
 				.and()
 				.formLogin()
-				.usernameParameter("email")
+				.usernameParameter("userName")
 				.passwordParameter("password")
 				.loginPage("/api/login");
 
