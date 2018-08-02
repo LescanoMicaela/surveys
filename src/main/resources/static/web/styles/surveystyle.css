@@ -168,13 +168,19 @@ body,#surveyPresentation,#submit,#answered{
     align-content: center;
     flex-direction: column;
 }
-.homeview h2{
+#viewSurvey,#backHome,#create-UserSurvey{
     cursor: pointer !important;
+
+}
+.homeview h2{
     color: #515151 !important;
     margin-bottom: 2rem !important;
 }
 .homeview h2:hover{
     color: #808080 !important;
+}
+#create-UserSurvey:hover{
+    background-color: #808080 ;
 }
 
 #youMustLog{

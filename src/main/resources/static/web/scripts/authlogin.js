@@ -12,7 +12,7 @@ loginButton.onclick = function (){
 function login(username,password) {
     $.post("/api/login", { userName: username, password: password }
     ).done( function(){goToHomePage()}
-    ).fail(function(){$("#alert").text("Wong email or password")})
+    ).fail(function(){$("#alert").text("Wong username or password")})
 }
 
 const exitIcon = document.getElementById("exit");
