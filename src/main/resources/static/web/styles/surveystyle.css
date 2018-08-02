@@ -125,10 +125,10 @@ body,#surveyPresentation,#submit,#answered{
 
 #answer{
     width: 80%;
-    border: none;
-    border-bottom: 1px solid gray;
+    border-radius: 10px;
+    border-bottom: 1px solid grey;
     padding: 2%;
-    margin-top: 2%;
+    margin-top: 4%;
 }
 #startSurvey{
     width: 100%;

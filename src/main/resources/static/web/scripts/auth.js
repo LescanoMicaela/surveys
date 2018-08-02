@@ -16,7 +16,7 @@ function login(username,password) {
         $.post("/api/login", { userName: username, password: password }
         ).done(function()
         {document.location.href="index.html"}
-        ).fail(function(){makeAlert("Wrong email or password")})
+        ).fail(function(){makeAlert("Wrong username or password")})
 }
 function checkPwd(str) {
      if (str.search(/[^a-zA-Z0-9\!\@\#\$\%\^\&\*\(\)\_\+]/) != -1) {
