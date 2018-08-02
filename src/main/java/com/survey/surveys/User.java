@@ -68,12 +68,5 @@ public class User {
     public void setUserSurveys(List<UserSurvey> userSurveys) {
         this.userSurveys = userSurveys;
     }
-//    public String getPassword() {
-//        return password;
-//    }
-//
-//    public void setPassword(String password) {
-//        this.password = password;
-//    }
 
 }

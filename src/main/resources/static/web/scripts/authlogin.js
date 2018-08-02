@@ -10,7 +10,6 @@ loginButton.onclick = function (){
     }};
 
 function login(username,password) {
-    console.log(username,password);
     $.post("/api/login", { email: username, password: password }
     ).done( function(){goToHomePage()}
     ).fail(function(){$("#alert").text("Wong email or password")})

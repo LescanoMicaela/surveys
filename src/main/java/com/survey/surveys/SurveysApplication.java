@@ -58,6 +58,8 @@ public class SurveysApplication {
 			Question q9 = new Question("How likely are you to purchase any of our products again?");
 			Question q10 = new Question("Do you have any other comments, questions, or concerns?");
 
+			///Here we save the questions in the repo, no need to change this if its just 10 questions, it's important
+			//that you save them in the order you want to display them
 			questionRepo.save(q1);
 			questionRepo.save(q2);
 			questionRepo.save(q3);
@@ -69,10 +71,12 @@ public class SurveysApplication {
 			questionRepo.save(q9);
 			questionRepo.save(q10);
 
+			//This is the survey description/tittle
 			Survey survey1 = new Survey("Customer Satisfaction");
+
 			surveyRepo.save(survey1);
 
-
+			//Here we link our survery with our questions
 			surveyQuestionrepo.save(new SurveyQuestion(survey1,q1));
 			surveyQuestionrepo.save(new SurveyQuestion(survey1,q2));
 			surveyQuestionrepo.save(new SurveyQuestion(survey1,q3));
@@ -83,38 +87,6 @@ public class SurveysApplication {
 			surveyQuestionrepo.save(new SurveyQuestion(survey1,q8));
 			surveyQuestionrepo.save(new SurveyQuestion(survey1,q9));
 			surveyQuestionrepo.save(new SurveyQuestion(survey1,q10));
-
-			UserSurvey us1 = new UserSurvey(alasdair,survey1);
-			UserSurvey us2 = new UserSurvey(mica,survey1);
-			UserSurvey us3 = new UserSurvey(adonis,survey1);
-
-			userSurveyRepo.save(us1);
-			userSurveyRepo.save(us2);
-			userSurveyRepo.save(us3);
-
-//			UserSurveyAnswer usa1 = new UserSurveyAnswer(us1,q1,"Great");
-//			UserSurveyAnswer usa2 = new UserSurveyAnswer(us1,q2,"Very well");
-//			UserSurveyAnswer usa3 = new UserSurveyAnswer(us1,q3,"Very likely");
-//			UserSurveyAnswer usa4 = new UserSurveyAnswer(us1,q4,"3 days");
-//			UserSurveyAnswer usa5 = new UserSurveyAnswer(us1,q5,"No");
-//			UserSurveyAnswer usa6 = new UserSurveyAnswer(us1,q6,"Fair well");
-//			UserSurveyAnswer usa7 = new UserSurveyAnswer(us1,q7,"Very well");
-//			UserSurveyAnswer usa8 = new UserSurveyAnswer(us1,q8,"2 years");
-//			UserSurveyAnswer usa9 = new UserSurveyAnswer(us1,q9,"Very likely");
-//			UserSurveyAnswer usa10 = new UserSurveyAnswer(us1,q10,"No");
-
-//			userSurveyAnswerRepo.save(usa1);
-//			userSurveyAnswerRepo.save(usa2);
-//			userSurveyAnswerRepo.save(usa3);
-//			userSurveyAnswerRepo.save(usa4);
-//			userSurveyAnswerRepo.save(usa5);
-//			userSurveyAnswerRepo.save(usa6);
-//			userSurveyAnswerRepo.save(usa7);
-//			userSurveyAnswerRepo.save(usa8);
-//			userSurveyAnswerRepo.save(usa9);
-//			userSurveyAnswerRepo.save(usa10);
-
-
 
 		};
 	}
@@ -149,13 +121,6 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 
 				.antMatchers("**").permitAll()
-//				.antMatchers("/api/games**").permitAll()
-//				.antMatchers("/api/players**").permitAll()
-//				.antMatchers("/web/script/**").permitAll()
-//				.antMatchers("/web/styles/**").permitAll()
-////				.antMatchers("/api/games").permitAll()
-//				.antMatchers("/**").hasAnyAuthority("USER")
-
 				.and()
 				.formLogin()
 				.usernameParameter("email")

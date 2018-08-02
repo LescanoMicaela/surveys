@@ -27,11 +27,6 @@ public class SurveyQuestion {
 
     }
 
-
-//    public Survey getSurvey() {
-//        return survey;
-//    }
-
     public Long getId() {
         return id;
     }

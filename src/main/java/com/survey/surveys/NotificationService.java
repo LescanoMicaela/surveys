@@ -22,12 +22,12 @@ public class NotificationService {
         this.javaMailSender = javaMailSender;
     }
 
-    public void sendNotifiction(User user, String email, String emailfrom, String subject, String body) throws MailException {
+    public void sendNotifiction(User user, String emailBcc, String emailfrom, String subject, String body) throws MailException {
         SimpleMailMessage mail = new SimpleMailMessage();
 
 //        currentuser
         mail.setTo(user.getEmail());
-        mail.setBcc(email);
+        mail.setBcc(emailBcc);
         mail.setFrom(emailfrom);
         mail.setSubject(subject);
         mail.setText(body);

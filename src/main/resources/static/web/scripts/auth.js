@@ -16,7 +16,7 @@ function login(username,password) {
         $.post("/api/login", { email: username, password: password }
         ).done(function()
         {document.location.href="index.html"}
-        ).fail(function(){console.log("Wong email or password")})
+        ).fail(function(){makeAlert("Wrong email or password")})
 }
 function checkPwd(str) {
      if (str.search(/[^a-zA-Z0-9\!\@\#\$\%\^\&\*\(\)\_\+]/) != -1) {
@@ -84,7 +84,6 @@ function getData() {
         dataType: 'json',
         success: function (data) {
             datauser = data;
-            console.log(datauser);
         }
 })};
 

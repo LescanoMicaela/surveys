@@ -31,7 +31,6 @@ $(document).ready(function () {
         },
         error: function () {
             window.location.href = "index.html";
-            console.log("This is not your survey")
         }
     })
 });
@@ -76,7 +75,6 @@ function getParameterByName(name) {
 
 function makeUrl() {
     var userSurveyID = getParameterByName("us");
-    console.log(userSurveyID);
     return '/api/user_survey_view/' + userSurveyID;
 }
 

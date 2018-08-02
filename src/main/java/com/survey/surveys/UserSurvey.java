@@ -38,10 +38,6 @@ public class UserSurvey {
         return userSurveyAnswer;
     }
 
-//    public void setUserSurveyAnswers(Set<UserSurveyAnswer> userSurveyAnswer) {
-//        this.userSurveyAnswer = userSurveyAnswer;
-//    }
-
     public Long getId() {
         return id;
     }
