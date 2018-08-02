@@ -1,4 +1,4 @@
-setTimeout(function(){ $("body").show() }, 100);
+setTimeout(function(){ $("body").show() }, 300);
 
 const welcomeMessage = $("#userName");
 var datauser;
