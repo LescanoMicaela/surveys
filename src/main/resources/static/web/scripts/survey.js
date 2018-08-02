@@ -7,6 +7,14 @@ var answers = [];
 var surveyQuestionIDs= [];
 
 
+$(document).ajaxStart(function(){
+    $("#loader").css("display", "flex");
+});
+
+$(document).ajaxComplete(function(){
+    $("#loader").css("display", "none");
+});
+
 $(document).ready(function () {
     $.ajax({
         url: makeUrl(),
@@ -14,7 +22,6 @@ $(document).ready(function () {
         success: function (data) {
             survey = data;
             questionsAndAnswers = survey["survey-info"].QnA;
-
             sortData(questionsAndAnswers);
             showQuestions();
             nameSurvey();
@@ -29,13 +36,23 @@ $(document).ready(function () {
     })
 });
 
-$(document).ajaxStart(function(){
-    $("#loader").css("display", "flex");
-});
+function postUserSurveyQuestion() {
+    var userSurveyid = survey["u-survey-id"];
+    $.post({
+        url: "/api/userSurveys/" + userSurveyid + "/userSurveyAnswer",
+        data: JSON.stringify({answer: answers , id: surveyQuestionIDs}),
+        dataType: "text",
+        contentType: "application/json"
+    }).done(function () {
+        console.log("answer saved");
+        window.location.href = "index.html"
 
-$(document).ajaxComplete(function(){
-    $("#loader").css("display", "none");
-});
+    }).fail(
+        function (e) {
+            makeAlert(e.responseText)
+        });
+
+}
 
 
 function sortData(data) {
@@ -46,6 +63,10 @@ function sortData(data) {
             return a1 > b1 ? 1 : -1;
         });
     }
+}
+
+function hideElement(elementid){
+    $("#"+elementid).hide()
 }
 
 function getParameterByName(name) {
@@ -61,49 +82,49 @@ function makeUrl() {
 
 
 function toggleQuestion(){
-	$("#surveyPresentation").slideToggle(600);
+	$("#surveyPresentation").slideToggle(300);
 }
 
 function showQuestions(){
-    $("#question").text(questionsAndAnswers[0].question);
+    $("#question").text(questionsAndAnswers[counter].question);
     $("#next").click(function changeQuestionDisplay(){
-        // postUserSurveyQuestion();
-        if($("#answer").val() != "" ){
+        if(getAnswers() != "" ){
             counter +=1;
             widthProgressBar();
-            answers.push($("#answer").val());
-            surveyQuestionIDs.push(""+ questionsAndAnswers[counter-1].id);
-            $("#answer").val('');
-            if ( questionsAndAnswers[counter] == undefined){
-                $("#surveyLayout").hide();
-                $("#question").text("Thank you");
-                $("#surveyLayout").slideToggle(500);
-                $("#next").hide();
-                $("#answer").hide();
-                postUserSurveyQuestion();
-            }else{
-                console.log(counter);
-                $("#surveyLayout").hide();
-                $("#question").text(questionsAndAnswers[counter].question);
-                $("#surveyLayout").slideToggle(500);
+            createArraysQnA();
+            emptyAnswerInput();
 
+            if ( questionsAndAnswers[counter] == undefined){
+                endSurveyDisplay();
+            }else{
+                showNextDisplay(questionsAndAnswers[counter].question);
             }
         }else{
-            $("#alert").text("Answer can't be blank");
+            makeAlert("Answer can't be blank");
         }
-
     })
 }
 
+function showNextDisplay(message){
+    hideElement("surveyLayout");
+    $("#question").text(message);
+    $("#surveyLayout").slideToggle(400);
+}
+
+function makeAlert(text){
+    $("#alert").text(text);
+}
+
+
 
 $('#answer').keypress(function(e){
-    if(e.which == 13){//Enter key pressed
-        $('#next').click();//Trigger search button click event
+    if(e.which == 13){
+        $('#next').click();
     }
 });
 
 $("#answer").keyup(function(){
-    $("#alert").text("");
+    makeAlert("");
 });
 
 function widthProgressBar(){
@@ -112,28 +133,26 @@ function widthProgressBar(){
 }
 
 function getAnswers(){
-    var answer = $("#answer").val();
-}
-
-function postUserSurveyQuestion() {
-    var userSurveyid = survey["u-survey-id"];
-    $.post({
-        url: "/api/userSurveys/" + userSurveyid + "/userSurveyAnswer",
-        data: JSON.stringify({answer: answers , id: surveyQuestionIDs}),
-        dataType: "text",
-        contentType: "application/json"
-    }).done(function () {
-        console.log("answer saved");
-        window.location.href = "index.html"
-
-    }).fail(
-        function (e) {
-            $("#alert").text(e.responseText)
-        });
-
+    return $("#answer").val();
 }
 
 
 function nameSurvey(){
-    var h1 = $("#surveyTitle").text(survey["survey-info"].description);
+    $("#surveyTitle").text(survey["survey-info"].description);
+}
+
+function endSurveyDisplay(){
+    showNextDisplay("Thank you");
+    hideElement("next");
+    hideElement("answer");
+    postUserSurveyQuestion();
+}
+
+function createArraysQnA(){
+    answers.push(getAnswers());
+    surveyQuestionIDs.push(""+ questionsAndAnswers[counter-1].id);
+}
+
+function emptyAnswerInput(){
+    $("#answer").val('')
 }

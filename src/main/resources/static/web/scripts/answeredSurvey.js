@@ -11,7 +11,7 @@ $(document).ready(function () {
             printQuestions();
         },
         error: function () {
-            window.location.href = "index.html";
+            goToHomePage();
         }
     })
 });
@@ -53,6 +53,7 @@ function printQuestions(){
             divContainer.appendChild(div);
     }
 }
+
 
 
 function goToHomePage(){
