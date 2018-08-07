@@ -85,8 +85,9 @@ function toggleQuestion(){
 
 function showQuestions(){
     $("#question").text(questionsAndAnswers[counter].question);
+    createSelect();
     $("#next").click(function changeQuestionDisplay(){
-        if(getAnswers() != "" ){
+        if(getAnswerOption() != "" ){
             counter +=1;
             widthProgressBar();
             createArraysQnA();
@@ -134,6 +135,10 @@ function getAnswers(){
     return $("#answer").val();
 }
 
+function getAnswerOption(){
+    return document.getElementById("selectAnswer").value;
+}
+
 
 function nameSurvey(){
     $("#surveyTitle").text(survey["survey-info"].description);
@@ -142,15 +147,25 @@ function nameSurvey(){
 function endSurveyDisplay(){
     showNextDisplay("Thank you");
     hideElement("next");
-    hideElement("answer");
+    hideElement("selectAnswer");
     postUserSurveyQuestion();
 }
 
 function createArraysQnA(){
-    answers.push(getAnswers());
+    answers.push(getAnswerOption());
     surveyQuestionIDs.push(""+ questionsAndAnswers[counter-1].id);
 }
 
 function emptyAnswerInput(){
     $("#answer").val('')
+}
+
+function createSelect(){
+    var select = document.getElementById("selectAnswer");
+    for(var q= 0; q < questionsAndAnswers[counter].answer.length; q++){
+        var option = document.createElement("option");
+        option.textContent = questionsAndAnswers[counter].answer[q].option;
+        select.appendChild(option);
+    }
+
 }

@@ -35,7 +35,7 @@ public class SurveysApplication {
 	@Bean
 	public CommandLineRunner initData(UserRepository userRepo, QuestionRepository questionRepo, SurveyRepository surveyRepo,
 									  SurveyQuestionRepository surveyQuestionrepo, UserSurveyRepository userSurveyRepo,
-									  UserSurveyAnswerRepository userSurveyAnswerRepo){
+									  UserSurveyAnswerRepository userSurveyAnswerRepo, QuestionAnswerRepository questionAnswerRepo){
 		return args -> {
 			// save a couple of customers
 			User alasdair = new User("Alasdar","hola123","alasdair@gmail.com");
@@ -87,6 +87,62 @@ public class SurveysApplication {
 			surveyQuestionrepo.save(new SurveyQuestion(survey1,q8));
 			surveyQuestionrepo.save(new SurveyQuestion(survey1,q9));
 			surveyQuestionrepo.save(new SurveyQuestion(survey1,q10));
+
+			String answer1 = "Very Satisfactory";
+			String answer2 = "Somewhat Satisfactory";
+			String answer3 = "Not at all satisfied";
+			String answer12 = "Miserably";
+			String answer4 = "An exceptional value";
+			String answer5 = "A good value";
+			String answer6 = "A poor value";
+			String answer7 = "Average";
+			String answer8 = "Great";
+			String answer9 = "Poor";
+			String answer10 = "Very fast";
+			String answer11 = "Slow";
+			String answer13 = "Slow";
+
+
+			questionAnswerRepo.save( new QuestionAnswer(q1,answer1));
+			questionAnswerRepo.save( new QuestionAnswer(q1,answer2 ));
+			questionAnswerRepo.save( new QuestionAnswer(q1,answer3 ));
+
+
+			questionAnswerRepo.save( new QuestionAnswer(q2,answer1));
+			questionAnswerRepo.save( new QuestionAnswer(q2,answer2 ));
+			questionAnswerRepo.save( new QuestionAnswer(q2,answer3 ));
+
+			questionAnswerRepo.save( new QuestionAnswer(q3,answer1 ));
+			questionAnswerRepo.save( new QuestionAnswer(q3,answer2 ));
+			questionAnswerRepo.save( new QuestionAnswer(q3,answer3 ));
+
+			questionAnswerRepo.save( new QuestionAnswer(q4,answer1 ));
+			questionAnswerRepo.save(new QuestionAnswer(q4,answer2));
+			questionAnswerRepo.save(new QuestionAnswer(q4,answer3));
+
+			questionAnswerRepo.save(new QuestionAnswer(q5,answer1));
+			questionAnswerRepo.save(new QuestionAnswer(q5,answer2));
+			QuestionAnswer q5a3 = new QuestionAnswer(q5,answer3 );
+
+			questionAnswerRepo.save(new QuestionAnswer(q6,answer1));
+			questionAnswerRepo.save(new QuestionAnswer(q6,answer2));
+			questionAnswerRepo.save(new QuestionAnswer(q6,answer3));
+
+			questionAnswerRepo.save(new QuestionAnswer(q7,answer1));
+			questionAnswerRepo.save(new QuestionAnswer(q7,answer2));
+			questionAnswerRepo.save(new QuestionAnswer(q7,answer3));
+
+			questionAnswerRepo.save(new QuestionAnswer(q8,answer1));
+			questionAnswerRepo.save(new QuestionAnswer(q8,answer2));
+			questionAnswerRepo.save(new QuestionAnswer(q8,answer3));
+
+			questionAnswerRepo.save(new QuestionAnswer(q9,answer1));
+			questionAnswerRepo.save(new QuestionAnswer(q9,answer2));
+			questionAnswerRepo.save(new QuestionAnswer(q9,answer3));
+
+			questionAnswerRepo.save(new QuestionAnswer(q10,answer1));
+			questionAnswerRepo.save(new QuestionAnswer(q10,answer2));
+			questionAnswerRepo.save(new QuestionAnswer(q10,answer3));
 
 		};
 	}

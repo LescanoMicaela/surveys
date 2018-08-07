@@ -33,7 +33,7 @@ function getParameterByName(name) {
 
 function makeUrl() {
     var userSurveyID = getParameterByName("us");
-    return '/api/user_survey_view/' + userSurveyID;
+    return '/api/user_Answeredsurvey_view/' + userSurveyID;
 }
 
 function printQuestions(){

@@ -11,6 +11,9 @@ public class Question {
     private Long id;
     private String question;
 
+    @OneToMany(mappedBy = "question",fetch = FetchType.EAGER)
+    private Set<QuestionAnswer> questionAnswers = new LinkedHashSet<>();
+
     @OneToMany(mappedBy = "question", fetch = FetchType.EAGER)
     private List<SurveyQuestion> surveyQuestions = new ArrayList<>();
 
@@ -56,5 +59,23 @@ public class Question {
         this.userSurveyAnswers = userSurveyAnswer;
     }
 
+    public Set<QuestionAnswer> getQuestionAnswers() {
+        return questionAnswers;
+    }
 
+    public void setQuestionAnswers(Set<QuestionAnswer> questionAnswers) {
+        this.questionAnswers = questionAnswers;
+    }
+
+    public List<SurveyQuestion> getSurveyQuestions() {
+        return surveyQuestions;
+    }
+
+    public void setUserSurveyAnswers(List<UserSurveyAnswer> userSurveyAnswers) {
+        this.userSurveyAnswers = userSurveyAnswers;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

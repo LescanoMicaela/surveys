@@ -77,9 +77,21 @@ public class SurveyController {
         return surveyDTO;
     }
 
+    public Map<String,Object> makeUserSurveyAnswered(Authentication auth){
+        Map<String, Object> surveyDTO = new LinkedHashMap<>();
+        //We just have one survey with id = 1;
+        Survey survey = surveyRepo.findOne(Long.valueOf(1));
+        Set<SurveyQuestion> surveyQuestions = new LinkedHashSet<>();
+        surveyQuestions = survey.getSurveyQuestions();
+
+        surveyDTO.put("description", survey.getDescription());
+        surveyDTO.put("QnA", surveyQuestions.stream().map(sq -> makeQuestionAnswered( sq, auth)).collect(toList()));
+        surveyDTO.put("length", surveyQuestions.size());
+        return surveyDTO;
+    }
    
 
-    public Map<String,Object> makeQuestionandAnsweDTO( SurveyQuestion surveyQuestion, Authentication auth){
+    public Map<String,Object> makeQuestionAnswered( SurveyQuestion surveyQuestion, Authentication auth){
         Map<String, Object> questionAnswerDTO = new LinkedHashMap<>();
         Question question= surveyQuestion.getQuestion();
         User user= currentUser(auth);
@@ -93,6 +105,28 @@ public class SurveyController {
             questionAnswerDTO.put("answer", null);
         }
         return questionAnswerDTO;
+    }
+
+
+    public Map<String,Object> makeQuestionandAnsweDTO( SurveyQuestion surveyQuestion, Authentication auth){
+        Map<String, Object> questionAnswerDTO = new LinkedHashMap<>();
+        Question question= surveyQuestion.getQuestion();
+        User user= currentUser(auth);
+        List<String> answerQuestions = question.getQuestionAnswers().stream()
+                                                .map(aq -> aq.getAnswer()).collect(toList());
+        UserSurveyAnswer userSurveyAnswer = question.getUserSurveyAnswer(user);
+
+        questionAnswerDTO.put("id",surveyQuestion.getId());
+        questionAnswerDTO.put("question", question.getQuestion());
+        questionAnswerDTO.put("answer", answerQuestions.stream().map(aq -> makeAnswersDTO(aq)).collect(toList()));
+
+        return questionAnswerDTO;
+    }
+
+    public Map<String,Object> makeAnswersDTO( String answer){
+        Map<String, Object> answersDTO = new LinkedHashMap<>();
+        answersDTO.put("option", answer);
+        return answersDTO;
     }
 
 
@@ -111,11 +145,34 @@ public class SurveyController {
         }
     }
 
+    @RequestMapping("/user_Answeredsurvey_view/{usID}")
+    public ResponseEntity<Map<String, Object>> userSurveyView2(@PathVariable Long usID, Authentication authentication) {
+        UserSurvey userSurvey = userSurveyRepo.findOne(usID);
+        if (authentication == null) {
+            return new ResponseEntity<>(makeMap("error", "You must log in to answer this survey"), HttpStatus.UNAUTHORIZED);
+        } else {
+            if (userSurvey.getUser().getId() != currentUser(authentication).getId()) {
+                return new ResponseEntity<>(makeMap("error", "This survey is not for you"), HttpStatus.UNAUTHORIZED);
+
+            } else {
+                return new ResponseEntity<>( getUserSurveyAnswered(userSurvey,authentication), HttpStatus.OK);
+            }
+        }
+    }
+
     public Map<String,Object> getUserSurveyDTO (UserSurvey userSurvey, Authentication authentication){
         Map<String, Object> usersurveyDTO = new LinkedHashMap<>();
         usersurveyDTO.put("u-survey-id", userSurvey.getId());
         usersurveyDTO.put("user", makeUserDTO(authentication));
         usersurveyDTO.put("survey-info", makeUserSurveyDTO(authentication));
+        return usersurveyDTO;
+    }
+
+    public Map<String,Object> getUserSurveyAnswered (UserSurvey userSurvey, Authentication authentication){
+        Map<String, Object> usersurveyDTO = new LinkedHashMap<>();
+        usersurveyDTO.put("u-survey-id", userSurvey.getId());
+        usersurveyDTO.put("user", makeUserDTO(authentication));
+        usersurveyDTO.put("survey-info", makeUserSurveyAnswered(authentication));
         return usersurveyDTO;
     }
 
