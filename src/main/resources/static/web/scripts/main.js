@@ -60,7 +60,7 @@ $("#create-UserSurvey").click(function createUserSurvey(){
 
 
 $("#viewSurvey").click(function viewUserSurvey(){
-    window.location.href = "answeredSurvey.html?us=" +""+datauser.currentUser.UserSurveyID;
+    window.location.href = "results.html?us=" +""+datauser.currentUser.UserSurveyID;
 });
 
 

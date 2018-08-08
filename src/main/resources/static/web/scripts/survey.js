@@ -85,7 +85,7 @@ function toggleQuestion(){
 
 function showQuestions(){
     $("#question").text(questionsAndAnswers[counter].question);
-    createSelect();
+    createRadioButtons();
     $("#next").click(function changeQuestionDisplay(){
         if(getAnswerOption() != "" ){
             counter +=1;
@@ -136,7 +136,7 @@ function getAnswers(){
 }
 
 function getAnswerOption(){
-    return document.getElementById("selectAnswer").value;
+   return document.querySelector('input[name="answer"]:checked').value;
 }
 
 
@@ -160,12 +160,20 @@ function emptyAnswerInput(){
     $("#answer").val('')
 }
 
-function createSelect(){
+function createRadioButtons(){
     var select = document.getElementById("selectAnswer");
     for(var q= 0; q < questionsAndAnswers[counter].answer.length; q++){
-        var option = document.createElement("option");
-        option.textContent = questionsAndAnswers[counter].answer[q].option;
-        select.appendChild(option);
+        var label = document.createElement("label");
+
+        var radio = document.createElement("input");
+        radio.type = "radio";
+        radio.name = "answer";
+        radio.value = questionsAndAnswers[counter].answer[q].option;
+        label.appendChild(radio);
+
+        label.appendChild(document.createTextNode(questionsAndAnswers[counter].answer[q].option));
+
+        select.appendChild(label);
     }
 
 }

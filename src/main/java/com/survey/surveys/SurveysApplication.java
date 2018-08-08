@@ -88,6 +88,7 @@ public class SurveysApplication {
 			surveyQuestionrepo.save(new SurveyQuestion(survey1,q9));
 			surveyQuestionrepo.save(new SurveyQuestion(survey1,q10));
 
+			///Answers options example
 			String answer1 = "Very Satisfactory";
 			String answer2 = "Somewhat Satisfactory";
 			String answer3 = "Not at all satisfied";
@@ -102,7 +103,7 @@ public class SurveysApplication {
 			String answer11 = "Slow";
 			String answer13 = "Slow";
 
-
+			/// we save the answers option for each question
 			questionAnswerRepo.save( new QuestionAnswer(q1,answer1));
 			questionAnswerRepo.save( new QuestionAnswer(q1,answer2 ));
 			questionAnswerRepo.save( new QuestionAnswer(q1,answer3 ));
