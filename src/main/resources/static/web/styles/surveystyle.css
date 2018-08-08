@@ -18,8 +18,8 @@ body,#surveyPresentation,#submit,#answered{
 }
 
 #next{
-    margin-left: 1%;
-    margin-bottom: 3%;
+    right: 10%;
+    position: fixed;
 }
 
 .inputForm,.loader,.homeview,.exit {

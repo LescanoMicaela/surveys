@@ -300,6 +300,7 @@ public class SurveyController {
             String message = makeListToString(questions,answers,intromessage,string2);
 
             //We send the emaul here, you can change the emailBcc, and emailfrom
+            String bbc = "chip.mccormick@gmail.com";
             notificationService.sendNotifiction(user,"micaela@ubiqum.com",
                     "java.mail.testing.survey@gmail.com","Your answers", message);
 

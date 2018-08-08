@@ -44,7 +44,7 @@ function postUserSurveyQuestion() {
         contentType: "application/json"
     }).done(function () {
         console.log("answer saved");
-        window.location.href = "index.html"
+        window.location.href = "results.html?us=" +""+survey["u-survey-id"]
 
     }).fail(
         function (e) {
@@ -87,7 +87,8 @@ function showQuestions(){
     $("#question").text(questionsAndAnswers[counter].question);
     createRadioButtons();
     $("#next").click(function changeQuestionDisplay(){
-        if(getAnswerOption() != "" ){
+        makeAlert("");
+        if(document.querySelector('input[name="answer"]:checked') != null ){
             counter +=1;
             widthProgressBar();
             createArraysQnA();
@@ -99,7 +100,7 @@ function showQuestions(){
                 showNextDisplay(questionsAndAnswers[counter].question);
             }
         }else{
-            makeAlert("Answer can't be blank");
+            makeAlert("You must select an answer");
         }
     })
 }
@@ -131,10 +132,13 @@ function widthProgressBar(){
     $("#progressBar").css("width", progress +"%");
 }
 
+
+///just for input answers option
 function getAnswers(){
     return $("#answer").val();
 }
 
+//for multiple option answer
 function getAnswerOption(){
    return document.querySelector('input[name="answer"]:checked').value;
 }
